@@ -29,6 +29,13 @@ const typeDefs = `
     products: [Product]
   }
 
+  type Outfit {
+    _id: ID
+    top: Product
+    bottom: Product
+    accesories: [Product]
+  }
+
   type Auth {
     token: ID!
     user: User
