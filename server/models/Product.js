@@ -7,6 +7,11 @@ const productSchema = new Schema({
         ref: 'Category',
         required: true
     },
+    count: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     description: {
         type: String,
         required: false
