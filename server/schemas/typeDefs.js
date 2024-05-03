@@ -7,13 +7,13 @@ const typeDefs = `
   }
 
   type Product {
-    category: Category!
-    count: Int!
+    category: Category
+    count: Int
     description: String
     image: String
-    productId: Int!
-    price: Float!
-    title: String!
+    productId: Int
+    price: Float
+    title: String
   }
 
   type Auth {
