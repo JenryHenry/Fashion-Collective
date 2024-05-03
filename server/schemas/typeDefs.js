@@ -5,18 +5,20 @@ const typeDefs = `
     username: String
     email: String
     orders: [Order]
+    outfits: [Outfit]
   }
 
   type Category {
+    _id: ID
     name: String
   }
 
   type Product {
+    _id: ID
     category: Category
     count: Int
     description: String
     image: String
-    productId: Int
     price: Float
     title: String
   }
@@ -25,6 +27,13 @@ const typeDefs = `
     _id: ID
     purchaseDate: String
     products: [Product]
+  }
+
+  type Outfit {
+    _id: ID
+    top: Product
+    bottom: Product
+    accesories: [Product]
   }
 
   type Auth {
