@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App.jsx';
 import Cart from './pages/Cart.jsx';
 import Outfits from './pages/Outfits.jsx';
+import SearchApparel from './pages/SearchApparel.jsx';
 
 const router = createBrowserRouter([
   {
