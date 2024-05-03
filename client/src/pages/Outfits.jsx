@@ -1,4 +1,9 @@
+import { useState, useEffect } from 'react';
+
+
+
 const OutfitsPage = () => {
+
   return (
     <>
       <div>

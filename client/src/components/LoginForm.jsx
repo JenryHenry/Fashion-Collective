@@ -59,7 +59,6 @@ const LoginForm = () => {
           <Form.Control
             type="text"
             placeholder="Your email"
-            id="email"
             name="email"
             onChange={handleInputChange}
             value={userFormData.email}
@@ -76,7 +75,6 @@ const LoginForm = () => {
             type="password"
             placeholder="Your password"
             name="password"
-            id='password'
             onChange={handleInputChange}
             value={userFormData.password}
             required

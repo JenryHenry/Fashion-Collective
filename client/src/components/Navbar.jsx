@@ -29,6 +29,7 @@ const AppNavbar = () => {
                   <Nav.Link as={Link} to="/outfits">
                     See your outfits
                   </Nav.Link>
+                  <Nav.Link as={Link} to='/cart'>Cart</Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
