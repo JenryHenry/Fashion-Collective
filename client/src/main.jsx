@@ -1,8 +1,11 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '@radix-ui/themes/styles.css';
 
 import App from './App.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
+import Home from './pages/Home.jsx';
+import SearchApparel from './pages/SearchApparel.jsx';
 import Cart from './pages/Cart.jsx';
 import Outfits from './pages/Outfits.jsx';
 
@@ -10,10 +13,14 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <h1 className="display-2">Wrong page!</h1>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
+        element: <Home />,
+      },
+      {
+        path: '/search',
         element: <SearchApparel />,
       },
       {
@@ -21,7 +28,7 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: '/outfits',
+        path: '/my-outfits',
         element: <Outfits />,
       }
     ],
