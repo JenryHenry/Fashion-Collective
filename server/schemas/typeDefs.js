@@ -6,6 +6,16 @@ const typeDefs = `
     email: String
   }
 
+  type Product {
+    category: Category!
+    count: Int!
+    description: String
+    image: String
+    productId: Int!
+    price: Float!
+    title: String!
+  }
+
   type Auth {
     token: ID!
     user: User
