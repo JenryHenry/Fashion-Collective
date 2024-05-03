@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import SearchApparel from './pages/SearchApparel.jsx';
 import Cart from './pages/Cart.jsx';
 import Outfits from './pages/Outfits.jsx';
+import SearchApparel from './pages/SearchApparel.jsx';
 
 const router = createBrowserRouter([
   {

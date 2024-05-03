@@ -4,6 +4,27 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
+    orders: [Order]
+  }
+
+  type Category {
+    name: String
+  }
+
+  type Product {
+    category: Category
+    count: Int
+    description: String
+    image: String
+    productId: Int
+    price: Float
+    title: String
+  }
+
+  type Order {
+    _id: ID
+    purchaseDate: String
+    products: [Product]
   }
 
   type Auth {
