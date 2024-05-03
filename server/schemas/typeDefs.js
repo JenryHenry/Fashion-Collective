@@ -6,6 +6,10 @@ const typeDefs = `
     email: String
   }
 
+  type Category {
+    name: String
+  }
+
   type Product {
     category: Category
     count: Int
