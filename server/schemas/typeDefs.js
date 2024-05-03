@@ -4,6 +4,7 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
+    orders: [Order]
   }
 
   type Category {
