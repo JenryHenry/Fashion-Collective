@@ -20,6 +20,12 @@ const typeDefs = `
     title: String
   }
 
+  type Order {
+    _id: ID
+    purchaseDate: String
+    products: [Product]
+  }
+
   type Auth {
     token: ID!
     user: User
