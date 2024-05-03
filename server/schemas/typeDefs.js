@@ -13,6 +13,7 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
+    orders: [Order]
     outfits: [Outfit]
   }
 
@@ -28,6 +29,12 @@ const typeDefs = `
     productId: Int
     price: Float
     title: String
+  }
+
+  type Order {
+    _id: ID
+    purchaseDate: String
+    products: [Product]
   }
 
   type Auth {
