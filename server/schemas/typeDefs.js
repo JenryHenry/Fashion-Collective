@@ -5,13 +5,16 @@ const typeDefs = `
     username: String
     email: String
     orders: [Order]
+    outfits: [Outfit]
   }
 
   type Category {
+    _id: ID
     name: String
   }
 
   type Product {
+    _id: ID
     category: Category
     count: Int
     description: String
