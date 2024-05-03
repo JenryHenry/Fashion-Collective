@@ -20,10 +20,6 @@ const productSchema = new Schema({
         type: String,
         required: false
     },
-    productId: {
-        type: Number,
-        required: true
-    },
     price: {
         type: Number,
         required: true

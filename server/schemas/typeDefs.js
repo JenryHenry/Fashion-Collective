@@ -19,7 +19,6 @@ const typeDefs = `
     count: Int
     description: String
     image: String
-    productId: Int
     price: Float
     title: String
   }
