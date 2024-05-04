@@ -178,5 +178,47 @@ db.once('open', async () => {
 
     console.log('Products Seeded!');
 
-    
+    await User.create({
+        username: 'jackieA',
+        email: 'jackieA@email.com',
+        password: 'password12345',
+        orders: [
+            {
+                products: [products[1]._id, products[8]._id]
+            }
+        ],
+        outfits: [
+            {
+                top: products[1]._id,
+                shoes: products[8]._id
+            },
+            {
+                top: products[4]._id,
+                bottom: products[5]._id,
+                shoes: products[7]._id
+            }
+        ]
+    });
+
+    await User.create({
+        username: 'AdamT',
+        email: 'AdamT@email.com',
+        password: 'onetwothree123',
+        orders: [
+            {
+                products: [products[12]._id, products[16]._id]
+            }
+        ],
+        outfits: [
+            {
+                top: products[12]._id,
+                shoes: products[16]._id
+            }
+        ]
+    });
+
+    console.log('Users Seeded!');
+
+    process.exit();
+
 });
