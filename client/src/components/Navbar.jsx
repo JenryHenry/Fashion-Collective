@@ -1,14 +1,14 @@
 import { Box, TabNav } from '@radix-ui/themes';
 import { Link, useLocation } from 'react-router-dom';
 
-import AuthService from '../utils/auth';
+import Auth from '../utils/auth';
 
 const Navbar = () => {
   let pathname = window.location.pathname;
   let { state } = useLocation();
 
-  // If user is logged in, navbar tabs are: Home, Search, My Outfits, Cart, Logout
-  if(AuthService.loggedIn()){
+  // If user is logged in, navbar tabs are: Home, Search for Clothes, My Outfits, Cart, Logout
+  if(Auth.loggedIn()){
     return (
       <Box>
           <TabNav.Root>
@@ -16,7 +16,7 @@ const Navbar = () => {
                 <Link to='/' state='/'>Home</Link>
               </TabNav.Link>
               <TabNav.Link asChild active={pathname === '/search'}>
-                <Link to='/search' state='/search'>Search</Link>
+                <Link to='/search' state='/search'>Search for Clothes</Link>
               </TabNav.Link>
               <TabNav.Link asChild active={pathname === '/my-outfits'}>
                 <Link to='/my-outfits' state='/my-outfits'>My Outfits</Link>
@@ -24,15 +24,15 @@ const Navbar = () => {
               <TabNav.Link asChild active={pathname === '/cart'}>
                 <Link to='/cart' state='/cart'>Cart</Link>
               </TabNav.Link> 
-              <TabNav.Link asChild active={pathname === '/logout'}>
-                <Link to='/logout' state='/logout'>Logout</Link>
+              <TabNav.Link onClick={Auth.logout}>
+                Logout
               </TabNav.Link>
           </TabNav.Root>
       </Box>
     )
   }
 
-  // If user is logged in, navbar tabs are: Home, Search, Cart, Login / Signup
+  // If no user is logged in, navbar tabs are: Home, Search for Clothes, Cart, Login / Signup
     return (
       <Box>
           <TabNav.Root>
@@ -40,7 +40,7 @@ const Navbar = () => {
                 <Link to='/' state='/'>Home</Link>
               </TabNav.Link>
               <TabNav.Link asChild active={pathname === '/search'}>
-                <Link to='/search' state='/search'>Search</Link>
+                <Link to='/search' state='/search'>Search for Clothes</Link>
               </TabNav.Link>
               <TabNav.Link asChild active={pathname === '/cart'}>
                 <Link to='/cart' state='/cart'>Cart</Link>

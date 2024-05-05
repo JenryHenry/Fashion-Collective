@@ -1,11 +1,21 @@
 import { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const SignupForm = () => {
+import {
+          Button,
+          Card,
+          Container,
+          Flex,
+          Heading,
+          Text,
+          TextField,
+        } from '@radix-ui/themes';
+import * as Form from '@radix-ui/react-form';
+
+const SignupForm = ({ switchForm }) => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({
     username: '',
@@ -13,8 +23,6 @@ const SignupForm = () => {
     password: '',
   });
   const [addUser] = useMutation(ADD_USER);
-  // set state for form validation
-  const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
@@ -51,81 +59,84 @@ const SignupForm = () => {
   };
 
   return (
-    <>
-      {/* This is needed for the validation functionality above */}
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        {/* show alert if server response is bad */}
-        <Alert
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-          variant="danger"
-        >
-          Something went wrong with your signup!
-        </Alert>
+    <Container size='2'>
+      <Heading size='7' mb='3' align='center'>
+        Sign Up
+      </Heading>
+      <Card>
+        <Form.Root onSubmit={handleFormSubmit}>
+          <Form.Field name='username'>
+            <Text as='div' size='5' mb='3' weight='bold'>
+              Username
+            </Text>
+            <TextField.Root
+              type='username'
+              placeholder='Enter username'
+              name='username'
+              id='username'
+              onChange={handleInputChange}
+              value={userFormData.username}
+              required
+            />
+          </Form.Field>
+          <Form.Field mb='3'>
+            <Text as='div' size='5' mt='3' mb='3' weight='bold'>
+              Email
+            </Text>
+            <TextField.Root
+              type='email'
+              placeholder='Enter your email'
+              autoComplete='email'
+              id='email'
+              name='email'
+              onChange={handleInputChange}
+              value={userFormData.email}
+              required
+            />
+          </Form.Field>
+          <Form.Field>
+            <Text as='div' size='5' mt='3' mb='3' weight='bold'>
+              Password
+            </Text>
+            <TextField.Root
+              type='password'
+              placeholder='Enter password'
+              autoComplete='new-password'
+              name='password'
+              id='password'
+              onChange={handleInputChange}
+              value={userFormData.password}
+              required
+            />
+          </Form.Field>
 
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="username">Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Your username"
-            name="username"
-            id="username"
-            onChange={handleInputChange}
-            value={userFormData.username}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Username is required!
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="email">Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Your email address"
-            name="email"
-            id='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Email is required!
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="password">Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Your password"
-            name="password"
-            id="password"
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Password is required!
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={
-            !(
-              userFormData.username &&
-              userFormData.email &&
-              userFormData.password
-            )
-          }
-          type="submit"
-          variant="success"
-        >
-          Submit
-        </Button>
-      </Form>
-    </>
+          {/* Buttons: I have an account (switch to login) and Create account (signup) */}
+          <Flex gap='4' mt='4' justify='end'>
+            {/* If this button is clicked, it will switch to the login form */}
+            <Button
+              variant='soft'
+              onClick={switchForm}
+              type='button'
+            >
+              I have an account
+            </Button>
+            <Button
+              disabled={
+                !(
+                  userFormData.username &&
+                  userFormData.email &&
+                  userFormData.password
+                )
+              }
+              type='submit'
+              variant='success'
+            >
+              Create account
+            </Button>
+          </Flex>
+        </Form.Root>
+      </Card>
+    </Container>
   );
 };
 
