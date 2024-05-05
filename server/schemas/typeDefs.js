@@ -1,14 +1,5 @@
 const typeDefs = `
 
-  type Outfit {
-    hat: Product
-    top: Product
-    bottom: Product
-    shoes: Product
-    accessories: [Product]
-
-  }
-
   type User {
     _id: ID
     username: String
