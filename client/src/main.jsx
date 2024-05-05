@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import SearchApparel from './pages/SearchApparel.jsx';
 import Cart from './pages/Cart.jsx';
 import Outfits from './pages/Outfits.jsx';
+import Login from './pages/Login.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/my-outfits',
         element: <Outfits />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
       }
     ],
   },

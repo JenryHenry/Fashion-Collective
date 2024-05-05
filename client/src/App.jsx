@@ -8,6 +8,9 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes'
 
+import { Theme } from '@radix-ui/themes';
+import './App.css';
+
 import Navbar from './components/Navbar';
 
 const httpLink = createHttpLink({
@@ -35,7 +38,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-        <Theme>
+        <Theme radius="large">
           <Navbar />
           <Outlet />
       </Theme>
