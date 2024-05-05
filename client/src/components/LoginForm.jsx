@@ -1,14 +1,24 @@
 // see SignupForm.js for comments
 import { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-const LoginForm = () => {
+import {
+          Button,
+          Card,
+          Container,
+          Flex,
+          Heading,
+          Text,
+          TextField,
+        } from '@radix-ui/themes';
+import * as Form from '@radix-ui/react-form';
+
+const LoginForm = ({ switchForm }) => {
+
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [login] = useMutation(LOGIN_USER);
 
@@ -44,56 +54,61 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-          variant="danger"
-        >
-          Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="email">Email</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Your email"
-            id="email"
-            name="email"
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Email is required!
-          </Form.Control.Feedback>
-        </Form.Group>
+    <Container size='2'>     
+      <Heading size='7' mb='3' align='center'>Login</Heading>
+      <Card>
+        <Form.Root onSubmit={handleFormSubmit}>
+          <Form.Field name='email'>
+              <Text as='div' size='5' mb='3' weight='bold'>
+                Email
+              </Text>
+              <TextField.Root
+                type='email'
+                placeholder='Enter your email'
+                autoComplete='email'
+                id='email'
+                name='email'
+                onChange={handleInputChange}
+                value={userFormData.email}
+                required
+              />
+          </Form.Field>
+          <Form.Field>
+            <Text as='div' size='5' mt='3' mb='3' weight='bold'>
+              Password
+            </Text>
+            <TextField.Root
+              type='password'
+              placeholder='Enter your password'
+              autoComplete='current-password'
+              name='password'
+              id='password'
+              onChange={handleInputChange}
+              value={userFormData.password}
+              required
+            />
+          </Form.Field>
 
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="password">Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Your password"
-            name="password"
-            id='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Password is required!
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={!(userFormData.email && userFormData.password)}
-          type="submit"
-          variant="success"
-        >
-          Submit
-        </Button>
-      </Form>
-    </>
+          {/* Buttons: Create account (switch to signup) and Login */}
+          <Flex gap='4' mt='4' justify='end'>
+            {/* If this button is clicked, it will switch to the signup form */}
+            <Button
+              variant='soft'
+              onClick={switchForm}
+              type='button'
+            >
+              Create account
+            </Button>
+            <Button
+              disabled={!(userFormData.email && userFormData.password)}
+              type='submit'
+              variant='success'>
+              Login
+            </Button>
+          </Flex>
+        </Form.Root>        
+      </Card>
+    </Container>
   );
 };
 
