@@ -33,7 +33,7 @@ const typeDefs = `
     _id: ID
     top: Product
     bottom: Product
-    accesories: [Product]
+    accessories: [Product]
   }
 
   type Auth {

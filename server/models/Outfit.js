@@ -15,7 +15,7 @@ const outfitSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Product'
   }, 
-  accesories: [
+  accessories: [
     {
         type: Schema.Types.ObjectId,
         ref: 'Product'
