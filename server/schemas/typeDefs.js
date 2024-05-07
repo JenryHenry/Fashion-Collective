@@ -36,13 +36,27 @@ const typeDefs = `
     accessories: [Product]
   }
 
+  type Checkout {
+    session: ID
+  }
+
   type Auth {
     token: ID!
     user: User
   }
 
+  input ProductInput {
+    _id: ID
+    purchaseQuantity: Int
+    name: String
+    image: String
+    price: Float
+    quantity: Int
+  }
+
   type Query {
     user: User
+    checkout(products: [ProductInput]): Checkout
   }
 
   type Mutation {
