@@ -1,8 +1,11 @@
+import { useState, useEffect } from 'react';
+
 const SearchApparel = () => {
+
     return (
         <>
             <div>
-                <p>Search Page Goes Here</p>
+                <p>Search Apparel page here</p>
             </div>
         </>
     )
