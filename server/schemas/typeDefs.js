@@ -31,8 +31,10 @@ const typeDefs = `
 
   type Outfit {
     _id: ID
+    outfitName: String
     top: Product
     bottom: Product
+    shoes: Product
     accessories: [Product]
   }
 
@@ -55,13 +57,27 @@ const typeDefs = `
   }
 
   type Query {
-    user: User
+    user(username: String!): User
     checkout(products: [ProductInput]): Checkout
+    outfits(username: String!): [Outfit]
+    getSingleOutfit(outfitName: String!): Outfit
+    getProducts: [Product]
+    getTypeProducts(category: ID!): [Product]
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addOutfit(outfitName: String!): User
+    deleteOutfit(outfitName: String!): User
+    addBottom(outfitName: String!, bottom: ID): User
+    deleteBottom(outfitName: String!, bottom: ID): User
+    addTop(outfitName: String!, top: ID): User
+    deleteTop(outfitName: String!, top: ID): User
+    addShoes(outfitName: String!, shoes: ID): User
+    deleteShoes(outfitName: String!, shoes: ID): User
+    addAccessories(outfitName: String!, accessories: ID): User
+    deleteAccessories(outfitName: String!, accessories: ID): User
   }
 `;
 

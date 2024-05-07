@@ -6,8 +6,8 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
+import { Theme } from '@radix-ui/themes'
 
-import { Theme } from '@radix-ui/themes';
 import './App.css';
 
 import Navbar from './components/Navbar';
