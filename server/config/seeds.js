@@ -47,7 +47,7 @@ db.once('open', async () => {
             title: 'Jean Dress'
         },
         {
-            cateogory: categories[1]._id,
+            category: categories[1]._id,
             count: 99,
             description: `Women's pink fleece jacket. (Image by mrsiraphol on Freepik)`,
             image: 'freepik-fleece-jacket.jpg',
@@ -159,7 +159,7 @@ db.once('open', async () => {
             title: 'Dress Shoes'
         },
         {
-            cateogory: categories[8]._id,
+            category: categories[8]._id,
             count: 35,
             description: `Men's black and brown flat cap. (Image by mrsiraphol on Freepik)`,
             image: 'freepik-mens-hat.jpg', 
