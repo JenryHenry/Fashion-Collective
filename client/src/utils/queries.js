@@ -67,3 +67,11 @@ export const GET_TYPE_PRODUCTS = gql`
  }
 `
 
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($products: [ProductInput]) {
+    checkout(products: $products) {
+      session
+    }
+  }
+`;
