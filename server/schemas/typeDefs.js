@@ -60,7 +60,9 @@ const typeDefs = `
     user(username: String!): User
     checkout(products: [ProductInput]): Checkout
     outfits(username: String!): [Outfit]
-    outfit(outfitName: String!): Outfit
+    getSingleOutfit(outfitName: String!): Outfit
+    getProducts: [Product]
+    getTypeProducts(category: ID!): [Product]
   }
 
   type Mutation {
