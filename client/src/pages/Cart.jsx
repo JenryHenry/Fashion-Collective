@@ -1,4 +1,62 @@
+import { useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useLazyQuery } from '@apollo/client';
+import { QUERY_CHECKOUT } from '../../utils/queries';
+import { idbPromise } from '../../utils/helpers';
+import { useStoreContext } from '../../utils/GlobalState';
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
+
 const CartPage = () => {
+  const [state, dispatch] = useStoreContext();
+  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+
+  // TODO: Add a comment describing the functionality of the useEffect hook in this instance
+  // Your comment here
+  useEffect(() => {
+    if (data) {
+      stripePromise.then((res) => {
+        res.redirectToCheckout({ sessionId: data.checkout.session });
+      });
+    }
+  }, [data]);
+
+  // TODO: Add a comment describing what data we are watching and what work should be preformed if that data changes
+  // Your comment here
+  useEffect(() => {
+    async function getCart() {
+      const cart = await idbPromise('cart', 'get');
+      dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+    }
+
+    if (!state.cart.length) {
+      getCart();
+    }
+  }, [state.cart.length, dispatch]);
+
+  function toggleCart() {
+    dispatch({ type: TOGGLE_CART });
+  }
+
+  function calculateTotal() {
+    let sum = 0;
+    state.cart.forEach((item) => {
+      sum += item.price * item.purchaseQuantity;
+    });
+    return sum.toFixed(2);
+  }
+
+  // TODO: Add a comment describing the functionality of our submitCheckout function.
+  // Your comment here
+  function submitCheckout() {
+    getCheckout({
+      variables: { 
+        products: [...state.cart],
+      },
+    });
+  }
+
   return (
     <>
       <div>
