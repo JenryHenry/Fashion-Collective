@@ -1,5 +1,14 @@
 import { gql } from '@apollo/client';
 
+export const GET_CATEGORIES = gql`
+  query getCategories {
+    categories {
+      _id
+      name
+    }
+  }
+`;
+
 export const GET_USER = gql`
   query user {
     user {
@@ -43,14 +52,18 @@ export const GET_SINGLE_OUTFIT = gql`
 
 export const GET_PRODUCTS = gql`
  query getProducts {
-  products {
-    category
+  getProducts {
+    _id
+    category {
+      _id
+      name
+    }
     count
     description
     image
     price
     title
-}
+  }
  }
 `;
 

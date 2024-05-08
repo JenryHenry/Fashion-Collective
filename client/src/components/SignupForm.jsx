@@ -59,7 +59,7 @@ const SignupForm = ({ switchForm }) => {
   };
 
   return (
-    <Container size='2'>
+    <Container maxWidth='500px'>
       <Heading size='7' mb='3' align='center'>
         Sign Up
       </Heading>

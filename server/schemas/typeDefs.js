@@ -60,6 +60,7 @@ const typeDefs = `
     user(username: String!): User
     checkout(products: [ProductInput]): Checkout
     outfits(username: String!): [Outfit]
+    categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
     getProducts: [Product]
     getTypeProducts(category: ID!): [Product]

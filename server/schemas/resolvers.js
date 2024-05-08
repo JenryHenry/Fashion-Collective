@@ -1,4 +1,4 @@
-const { User, Outfit, Product } = require('../models');
+const { Category, User, Outfit, Product } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -7,6 +7,9 @@ const resolvers = {
     user: async (parent, args, context) => {
       const user = User.findById(context.user._id);
       return user;
+    },
+    categories: async () => {
+      return await Category.find();
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
@@ -48,11 +51,12 @@ const resolvers = {
       const user = User.findOne({ _id: context.user._id});
       return user.outfits.find((outfit) => {return outfit.outfitName === args.outfitName})      
     },
-    getProducts: async (parent, args, context) => {
-      return await Product.find();
+    getProducts: async () => {
+      return await Product.find().populate('category');
     },
-    getTypeProducts: async (parent, args, context) => {
-      return await Product.find({ category: args.category});
+    getTypeProducts: async (parent, { category }, context) => {
+      const categoryId = await Category.findOne({ name: category }, '_id');
+      return await Product.find({ category: categoryId }).populate('category');
     }
   },
 

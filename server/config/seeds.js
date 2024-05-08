@@ -20,7 +20,6 @@ db.once('open', async () => {
   ]);
 
   console.log('Categories Seeded!');
-  console.log(categories[0]._id);
 
     const products = await Product.insertMany([
         {
@@ -59,7 +58,7 @@ db.once('open', async () => {
             category: categories[1]._id,
             count: 74,
             description: `Women's black and white stripped top. (Photo by Vecteezy.com)`,
-            image: `vecteezy_stripped-top.jpg`,
+            image: `vecteezy_striped-top.jpg`,
             price: 15.99,
             title: 'Striped Top'
         },

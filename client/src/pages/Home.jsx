@@ -1,23 +1,31 @@
-import { Container, Flex } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
+
+import { Container, Heading } from '@radix-ui/themes';
+import Carousel from '../components/Carousel';
+
 import logo from '/logo.png';
 
 const Home = () => {
   return (
-      <Container size='4'>
+    <>
+      {/* Graphic to welcome user to website */}
+      <Container align='center'>
         <Link to='/search'>
-          <Flex justify='center'>
           <img
             src={logo}
             alt='Fashion Collective Logo'
             style={{
-              width: '100%',
-              height: '100%',
+              maxWidth: '100%',
             }}
           />
-          </Flex>
         </Link>
       </Container>
+      {/* Carousel to show featured clothing items */}
+      <Container>
+        <Heading as='h2' align='center'>Featured Items:</Heading>
+        <Carousel />
+      </Container>
+    </>
   );
 };
 
