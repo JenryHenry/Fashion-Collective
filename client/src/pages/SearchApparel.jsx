@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { GET_PRODUCTS } from '../utils/queries';  
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_PRODUCTS } from '../utils/queries';
+import { ADD_TOP, ADD_ACCESSORIES } from '../utils/mutations';
 
 import Categories from '../components/Categories';
 import Product from '../components/Product';
@@ -36,6 +37,36 @@ const SearchApparel = () => {
     const handleChange = (event) => {
         setSearch(event.target.value)
     };
+  
+//     const [addAccessories] = useMutation(ADD_ACCESSORIES);
+//     const [addTop] = useMutation(ADD_TOP);
+
+//     const handleAddTop = async () => {
+//         const top = '663afcdf22e65882a09b3d6f';
+//         const outfitName = 'outfit8';
+//         try {
+//             const { data } = await addTop({
+//                 variables: { outfitName, top }
+//             })
+//         }
+
+
+//         catch (err) {
+//             console.log(err);
+//         }
+//     };
+
+//     const handleAddAccessories = async () => {
+//         const accessories = '663afcdf22e65882a09b3d7d';
+//         const outfitName = 'outfit8';
+//         try {
+//             const { data } = await addAccessories({
+//                 variables: { outfitName, accessories }
+//             })
+//         } catch (err) {
+//             console.log(err);
+//         }
+//     };
 
     // loading screen until product data is returned
     if(loading){
@@ -72,6 +103,11 @@ const SearchApparel = () => {
                 <Product productData={productData}/>
             </Grid>
         </Container>
+//         <div>
+//                 <p>Search Apparel page here</p>
+//                 <button onClick={handleAddTop}>Add Top</button>
+//                 <button onClick={handleAddAccessories}>Add Watch</button>
+//         </div>
         </>
     )
 };
