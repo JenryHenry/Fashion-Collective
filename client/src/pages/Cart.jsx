@@ -9,7 +9,7 @@ import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../utils/actions';
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
 
 const CartPage = () => {
-  const [state, dispatch] = useStoreContext;
+  const [state, dispatch] = useStoreContext();
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
 
