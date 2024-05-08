@@ -3,23 +3,23 @@ const { User, Product, Category } = require('../models');
 const cleanDB = require('./cleanDB');
 
 db.once('open', async () => {
-    await cleanDB('Category', 'categories');
-    await cleanDB('Product', 'products');
-    await cleanDB('User', 'users');
+  await cleanDB('Category', 'categories');
+  await cleanDB('Product', 'products');
+  await cleanDB('User', 'users');
 
-    const categories = await Category.insertMany([
-        {name: `Women's Dresses`},
-        {name: `Women's Tops`},
-        {name: `Women's Bottoms`},
-        {name: `Women's Shoes`},
-        {name: `Women's Accessories`},
-        {name: `Men's Shirts`},
-        {name: `Men's Bottoms`},
-        {name: `Men's Shoes`},
-        {name: `Men's Accessories`}
-    ]);
+  const categories = await Category.insertMany([
+    { name: `Women's Dresses` },
+    { name: `Women's Tops` },
+    { name: `Women's Bottoms` },
+    { name: `Women's Shoes` },
+    { name: `Women's Accessories` },
+    { name: `Men's Shirts` },
+    { name: `Men's Bottoms` },
+    { name: `Men's Shoes` },
+    { name: `Men's Accessories` },
+  ]);
 
-    console.log('Categories Seeded!');
+  console.log('Categories Seeded!');
 
     const products = await Product.insertMany([
         {
@@ -47,7 +47,7 @@ db.once('open', async () => {
             title: 'Jean Dress'
         },
         {
-            cateogory: categories[1]._id,
+            category: categories[1]._id,
             count: 99,
             description: `Women's pink fleece jacket. (Image by mrsiraphol on Freepik)`,
             image: 'freepik-fleece-jacket.jpg',
@@ -58,7 +58,7 @@ db.once('open', async () => {
             category: categories[1]._id,
             count: 74,
             description: `Women's black and white stripped top. (Photo by Vecteezy.com)`,
-            image: `vecteezy_stripped-top.jpg`,
+            image: `vecteezy_striped-top.jpg`,
             price: 15.99,
             title: 'Striped Top'
         },
@@ -159,7 +159,7 @@ db.once('open', async () => {
             title: 'Dress Shoes'
         },
         {
-            cateogory: categories[8]._id,
+            category: categories[8]._id,
             count: 35,
             description: `Men's black and brown flat cap. (Image by mrsiraphol on Freepik)`,
             image: 'freepik-mens-hat.jpg', 
@@ -176,49 +176,51 @@ db.once('open', async () => {
         }
     ]);
 
-    console.log('Products Seeded!');
+  console.log('Products Seeded!');
 
-    await User.create({
-        username: 'jackieA',
-        email: 'jackieA@email.com',
-        password: 'password12345',
-        orders: [
-            {
-                products: [products[1]._id, products[8]._id]
-            }
-        ],
-        outfits: [
-            {
-                top: products[1]._id,
-                shoes: products[8]._id
-            },
-            {
-                top: products[4]._id,
-                bottom: products[5]._id,
-                shoes: products[7]._id
-            }
-        ]
-    });
+  await User.create({
+    username: 'jackieA',
+    email: 'jackieA@email.com',
+    password: 'password12345',
+    orders: [
+      {
+        products: [products[1]._id, products[8]._id],
+      },
+    ],
+    outfits: [
+      {
+        outfitName: 'outfit1',
+        top: products[1]._id,
+        shoes: products[8]._id,
+      },
+      {
+        outfitName: 'outfit2',
+        top: products[4]._id,
+        bottom: products[5]._id,
+        shoes: products[7]._id,
+      },
+    ],
+  });
 
-    await User.create({
-        username: 'AdamT',
-        email: 'AdamT@email.com',
-        password: 'onetwothree123',
-        orders: [
-            {
-                products: [products[12]._id, products[16]._id]
-            }
-        ],
-        outfits: [
-            {
-                top: products[12]._id,
-                shoes: products[16]._id
-            }
-        ]
-    });
+  await User.create({
+    username: 'AdamT',
+    email: 'AdamT@email.com',
+    password: 'onetwothree123',
+    orders: [
+      {
+        products: [products[12]._id, products[16]._id],
+      },
+    ],
+    outfits: [
+      {
+        outfitName: 'outfit1',
+        top: products[12]._id,
+        shoes: products[16]._id,
+      },
+    ],
+  });
 
-    console.log('Users Seeded!');
+  console.log('Users Seeded!');
 
-    process.exit();
-
+  process.exit();
 });

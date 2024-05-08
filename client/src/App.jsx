@@ -6,11 +6,11 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
+import { StoreProvider } from './utils/GlobalState';
 
-import { Theme } from '@radix-ui/themes';
-import './App.css';
-
+import { Box, Flex, Theme } from '@radix-ui/themes';
 import Navbar from './components/Navbar';
+import './App.css';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -37,10 +37,16 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-        <Theme radius="large">
-          <Navbar />
-          <Outlet />
-      </Theme>
+      <StoreProvider>
+        <Theme radius='large'>
+            <Navbar />
+            <Box pt='5' pb='5'>
+            <Flex asChild align='center' justify='center'>
+              <Outlet />
+            </Flex>
+            </Box>
+        </Theme>
+      </StoreProvider>
     </ApolloProvider>
   );
 }
