@@ -8,6 +8,7 @@ const outfitSchema = new Schema({
     required: 'Your outfit needs a name!',
     minlength: 1,
     maxlength: 50,
+    unique: true,
     trim: true,
   },
   top: {
@@ -30,6 +31,4 @@ const outfitSchema = new Schema({
   ],
 });
 
-const Outfit = mongoose.model('Outfit', outfitSchema);
-
-module.exports = Outfit;
+module.exports = outfitSchema;

@@ -70,14 +70,14 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addOutfit(outfitName: String!): User
     deleteOutfit(outfitName: String!): User
-    addBottom(outfitName: String!, bottom: ID): User
-    deleteBottom(outfitName: String!, bottom: ID): User
-    addTop(outfitName: String!, top: ID): User
-    deleteTop(outfitName: String!, top: ID): User
-    addShoes(outfitName: String!, shoes: ID): User
-    deleteShoes(outfitName: String!, shoes: ID): User
-    addAccessories(outfitName: String!, accessories: ID): User
-    deleteAccessories(outfitName: String!, accessories: ID): User
+    addBottom(outfitName: String!, bottom: ID!): Outfit
+    deleteBottom(outfitName: String!, bottom: ID!): Outfit
+    addTop(outfitName: String!, top: ID!): Outfit
+    deleteTop(outfitName: String!, top: ID!): Outfit
+    addShoes(outfitName: String!, shoes: ID!): Outfit
+    deleteShoes(outfitName: String!, shoes: ID!): Outfit
+    addAccessories(outfitName: String!, accessories: ID!): Outfit
+    deleteAccessories(outfitName: String!, accessories: ID!): Outfit
   }
 `;
 

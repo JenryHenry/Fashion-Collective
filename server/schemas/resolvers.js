@@ -80,7 +80,7 @@ const resolvers = {
       return { token, user };
     },
     addOutfit: async (parent, args, context) => {
-      if (context) {
+      if (context.user) {
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { outfits: args } },
@@ -98,81 +98,130 @@ const resolvers = {
       }
     },
 
-    // addTop: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await User.findById(context.user._id);
-    //     const outfit = user.outfits.find((fit) => {return fit.outfitName === args.outfitName});
+    addTop: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'top',
+            }
+          ]
+        });
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].top = args.top;
+        await user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    //     console.log(outfit);
-    //   }
-    // },
+    deleteTop: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].top = null;
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    // deleteTop: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await Outfit.findOneAndUpdate(
-    //       { outfitName: args.outfitName },
-    //       { $pull: { top: args.top } },
-    //       { new: true }
-    //     );
-    //   }
-    // },
+    addShoes: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'shoes',
+            }
+          ]
+        });;
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].shoes = args.shoes;
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    // addShoes: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await User.findOneAndUpdate(
-    //       { _id: context.user._id, outfitName: args.outfitName },
-    //       { $set: { shoes: args.shoes } }
-    //     );
-    //   }
-    // },
+    deleteShoes: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].shoes = null;
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    // deleteShoes: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await Outfit.findOneAndRemove(
-    //       { outfitName: args.outfitName },
-    //       { $pull: { shoes: args.shoes } },
-    //       { new: true }
-    //     );
-    //   }
-    // },
+    addBottom: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'bottom',
+            }
+          ]
+        });;
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].bottom = args.bottom;
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    // addBottom: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await User.findOneAndUpdate(
-    //       { _id: context.user._id, outfitName: args.outfitName },
-    //       { $set: { bottom: args.bottom } }
-    //     );
-    //   }
-    // },
+    deleteBottom: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].bottom = null;
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    // deleteBottom: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await Outfit.findOneAndRemove(
-    //       { outfitName: args.outfitName },
-    //       { $pull: { bottom: args.bottom } },
-    //       { new: true }
-    //     );
-    //   }
-    // },
+    addAccessories: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'accessories',
+            }
+          ]
+        });;
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        user.outfits[outfitIndex].accessories.push(args.accessories);
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
 
-    // addAccessories: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await User.findOneAndUpdate(
-    //       { _id: context.user._id, outfitName: args.outfitName },
-    //       { $set: { accessories: args.accessories } }
-    //     );
-    //   }
-    // },
-
-    // deleteAccessories: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await Outfit.findOneAndRemove(
-    //       { outfitName: args.outfitName },
-    //       { $pull: { accessories: args.accessories } },
-    //       { new: true }
-    //     );
-    //   }
-    // },
+    deleteAccessories: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'accessories',
+            }
+          ]
+        });;
+        const outfit = user.outfits.find(outfit => outfit.outfitName === args.outfitName);
+        const accessory = user.outfits.accessories.find(accessory => accessory === args.accessories);
+        const outfitIndex = user.outfits.indexOf(outfit);
+        const accessoryIndex = user.outfits.accessories.indexOf(accessory);
+        user.outfits[outfitIndex].accessories[accessoryIndex] = null;
+        user.save();
+        return user.outfits[outfitIndex];
+      }
+    },
   },
 };
 module.exports = resolvers;

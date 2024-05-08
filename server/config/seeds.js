@@ -214,7 +214,7 @@ db.once('open', async () => {
     ],
     outfits: [
       {
-        outfitName: 'outfit1',
+        outfitName: 'outfit3',
         top: products[12]._id,
         shoes: products[16]._id,
       },

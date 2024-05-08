@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const Order = require('./Order');
-const Outfit = require('./Outfit');
+const outfitSchema = require('./Outfit');
 
 const userSchema = new Schema(
   {
@@ -21,7 +21,7 @@ const userSchema = new Schema(
       required: true,
     },
     orders: [Order.schema],
-    outfits: [Outfit.schema]
+    outfits: [outfitSchema]
   },
   // set this to use virtual below
   {
