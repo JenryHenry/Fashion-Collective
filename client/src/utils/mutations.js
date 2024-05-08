@@ -29,12 +29,9 @@ export const ADD_USER = gql`
 export const ADD_OUTFIT = gql`
   mutation addOutfit($outfitName: String!) {
     addOutfit(outfitName: $outfitName) {
-      _id
-      outfitName
-      top
-      bottom
-      shoes
-      accessories
+      outfits {
+        outfitName
+      }
     }
   }
 `;
@@ -46,10 +43,7 @@ export const DELETE_OUTFIT = gql`
       username
       email
       outfits {
-        top
-        bottom
-        shoes
-        accessories
+        outfitName
       }
     }
   }
@@ -60,10 +54,13 @@ export const ADD_BOTTOM = gql`
     addBottom(outfitName: $outfitName, bottom: $bottom) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      bottom {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
@@ -73,10 +70,13 @@ export const DELETE_BOTTOM = gql`
     deleteBottom(outfitName: $outfitName, bottom: $bottom) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      bottom {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
@@ -86,10 +86,13 @@ export const ADD_SHOES = gql`
     addShoes(outfitName: $outfitName, shoes: $shoes) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      shoes {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
@@ -99,10 +102,13 @@ export const DELETE_SHOES = gql`
     deleteShoes(outfitName: $outfitName, shoes: $shoes) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      shoes {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
@@ -112,10 +118,13 @@ export const ADD_TOP = gql`
     addTop(outfitName: $outfitName, top: $top) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      top {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
@@ -125,36 +134,45 @@ export const DELETE_TOP = gql`
     deleteTop(outfitName: $outfitName, top: $top) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      top {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
 
 export const ADD_ACCESSORIES = gql`
   mutation addAccessories($outfitName: String!, $accessories: ID!) {
-    addAccessories(outfitName: $outfitName, accessories: $Accessories) {
+    addAccessories(outfitName: $outfitName, accessories: $accessories) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      accessories {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
 
 export const DELETE_ACCESSORIES = gql`
   mutation deleteAccessories($outfitName: String!, $accessories: ID!) {
-    deleteAccessories(outfitName: $outfitName, accessories: $Accessories) {
+    deleteAccessories(outfitName: $outfitName, accessories: $accessories) {
       _id
       outfitName
-      top
-      bottom
-      shoes
-      accessories
+      accessories {
+        count
+        description
+        image
+        price
+        title
+      }
     }
   }
 `;
