@@ -11,6 +11,8 @@ import { Theme } from '@radix-ui/themes'
 import './App.css';
 
 import Navbar from './components/Navbar';
+import { StoreProvider } from './utils/GlobalState';
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -37,10 +39,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <StoreProvider>
         <Theme radius="large">
           <Navbar />
           <Outlet />
-      </Theme>
+        </Theme>
+        </StoreProvider>
     </ApolloProvider>
   );
 }
