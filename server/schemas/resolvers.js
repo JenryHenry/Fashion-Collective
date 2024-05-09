@@ -51,8 +51,10 @@ const resolvers = {
       const user = User.findOne({ _id: context.user._id});
       return user.outfits.find((outfit) => {return outfit.outfitName === args.outfitName})      
     },
-    getProducts: async () => {
-      return await Product.find().populate('category');
+    getProducts: async (parent, { title }, context) => {
+      // The getProducts query is case insensitive
+      const products = await Product.find({ title: { '$regex': title, $options: 'i' } }).populate('category');
+      return products;
     },
     getTypeProducts: async (parent, { category }, context) => {
       const categoryId = await Category.findOne({ name: category }, '_id');

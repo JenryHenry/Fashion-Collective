@@ -51,8 +51,8 @@ export const GET_SINGLE_OUTFIT = gql`
 `;
 
 export const GET_PRODUCTS = gql`
- query getProducts {
-  getProducts {
+ query getProducts($title: String!) {
+  getProducts(title: $title) {
     _id
     category {
       _id
