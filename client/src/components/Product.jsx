@@ -2,6 +2,7 @@ import { Box, Button, Card, Inset, Text } from "@radix-ui/themes";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useStoreContext } from '../utils/GlobalState';
 import { ADD_TO_CART } from "../utils/actions";
+import { idbPromise } from "../utils/helpers";
 
 const Product = ({ product }) => {
 
@@ -10,7 +11,7 @@ const Product = ({ product }) => {
     const handleAddToCart = (item) => {
         // Dispatch an action to add the product to the cart
         dispatch({ type: ADD_TO_CART, product: item });
-
+        idbPromise('cart', 'put', { ...item });
     };
     
     return (

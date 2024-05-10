@@ -10,7 +10,7 @@ import { idbPromise } from '../utils/helpers';
 
 import { Box, Flex, SegmentedControl } from '@radix-ui/themes';
 
-function Categories({ setCategoryProducts }) {
+function Categories() {
   const [state, dispatch] = useStoreContext();
 
   const { categories } = state;

@@ -35,14 +35,11 @@ const CartPage = () => {
     }
   }, [state.cart.length, dispatch]);
 
-  function toggleCart() {
-    dispatch({ type: TOGGLE_CART });
-  }
 
   function calculateTotal() {
     let sum = 0;
-    state.cart.forEach((item) => {
-      sum += item.price * item.purchaseQuantity;
+    state.cart.forEach((product) => {
+      sum += product.price * product.purchaseQuantity;
     });
     return sum.toFixed(2);
   }
@@ -56,14 +53,15 @@ const CartPage = () => {
     });
   }
 
+
   return (
     <>
     <div className="cart">
       <h2>Shopping Cart</h2>
       {state.cart.length ? (
         <div>
-          {state.cart.map((item) => (
-            <CartItem key={item._id} item={item} />
+          {state.cart.map((product) => (
+            <CartItem key={product._id} product={product} />
           ))}
 
           <div className="flex-row space-between">
@@ -82,7 +80,6 @@ const CartPage = () => {
         </h3>
       )}
     </div>
-  );
     </>
   );
 };
