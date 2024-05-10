@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PRODUCTS } from '../utils/queries';
 import { ADD_TOP, ADD_ACCESSORIES } from '../utils/mutations';
+import { UPDATE_PRODUCTS } from '../utils/actions';
+import { useStoreContext } from '../utils/GlobalState';
+import { idbPromise } from '../utils/helpers';
 
 import Categories from '../components/Categories';
 import Product from '../components/Product';
@@ -11,9 +14,30 @@ import * as Form from '@radix-ui/react-form';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const SearchApparel = () => {
+    const [state, dispatch] = useStoreContext();
+
     // useQuery hook
     // get all products from database
     const { loading, data: productData } = useQuery(GET_PRODUCTS);
+
+    useEffect(() => {
+        if (productData.getProducts) {
+          dispatch({
+            type: UPDATE_PRODUCTS,
+            products: productData.getProducts,
+          });
+          productData.getProducts.forEach((product) => {
+            idbPromise('products', 'put', product);
+          });
+        } else if (!loading) {
+          idbPromise('products', 'get').then((products) => {
+            dispatch({
+              type: UPDATE_PRODUCTS,
+              products: products,
+            });
+          });
+        }
+      }, [productData.getProducts, loading, dispatch]);
 
     // useState hook
     // holds search field data
