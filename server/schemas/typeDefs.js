@@ -64,7 +64,7 @@ const typeDefs = `
     categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
     getProducts(title: String!): [Product]
-    getTypeProducts(name: String!): [Product]
+    getTypeProducts(_id: ID!): [Product]
   }
 
   type Mutation {

@@ -57,9 +57,8 @@ const resolvers = {
       const products = await Product.find({ title: { '$regex': title, $options: 'i' } }).populate('category');
       return products;
     },
-    getTypeProducts: async (parent, { name }, context) => {
-      const categoryId = await Category.findOne({ name: name }, '_id');
-      const categoryProducts = await Product.find({ category: categoryId }).populate('category');
+    getTypeProducts: async (parent, { _id }, context) => {
+      const categoryProducts = await Product.find({ category: _id }).populate('category');
       return categoryProducts;
     }
   },
