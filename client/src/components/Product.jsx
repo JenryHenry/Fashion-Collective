@@ -1,11 +1,10 @@
 import { Box, Button, Card, Inset, Text } from "@radix-ui/themes";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
-const Product = ({ productData }) => {
+const Product = ({ product }) => {
     
     return (
         <>
-        {productData.getProducts.map((product) => (
         <Box key={product._id} maxWidth='350px'>
             <Card variant='surface' size='3'>
                 <Inset clip='border-box' side='top' pb='current'>
@@ -33,7 +32,6 @@ const Product = ({ productData }) => {
                 </Box>
             </Card>
         </Box>
-        ))}
         </>
     );
 };

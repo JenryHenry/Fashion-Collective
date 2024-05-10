@@ -15,8 +15,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const SearchApparel = () => {
     const [state, dispatch] = useStoreContext();
-    // holds search field data
-    const { searchQuery } = state;
+
+    const { searchQuery, currentCategory } = state;
 
     // useQuery hook
     // get all products from database
@@ -63,6 +63,17 @@ const SearchApparel = () => {
         });
     };
   
+    function filterProducts() {
+        console.log(currentCategory);
+
+        if (!currentCategory) {
+          return state.products;
+        }
+    
+        return state.products.filter(
+          (product) => product.category._id === currentCategory
+        );
+      }
 
     // loading screen until product data is returned
     if(loading){
@@ -96,7 +107,9 @@ const SearchApparel = () => {
         <Categories />
         <Container maxWidth='90%'>
             <Grid columns={{ initial: '1', md: '3', lg:'4', xl:'5' }} gap='3' width='auto'>
-                <Product productData={productData}/>
+                {filterProducts().map((product) => (
+                <Product product={product}/>
+                ))}
             </Grid>
         </Container>
 

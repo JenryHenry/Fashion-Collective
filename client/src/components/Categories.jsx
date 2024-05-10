@@ -48,12 +48,13 @@ function Categories() {
     <Box as='div' align='center' pb='6'>
         <SegmentedControl.Root size='2'>
           {categories.map((category) => (
-            <SegmentedControl.Item key={category._id} value={category.name}>{category.name}</SegmentedControl.Item>
+            <SegmentedControl.Item key={category._id} value={category.name} onClick={() => handleClick(category._id)}>{category.name}</SegmentedControl.Item>
           ))}
         </SegmentedControl.Root>
     </Box>
     </Flex>
   );
+
 }
 
 export default Categories;
