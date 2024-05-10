@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_PRODUCTS } from '../utils/queries';
 import { ADD_TOP, ADD_ACCESSORIES } from '../utils/mutations';
-import { CLEAR_QUERY, SET_QUERY, UPDATE_PRODUCTS, UPDATE_CURRENT_CATEGORY } from '../utils/actions';
+import { CLEAR_QUERY, SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 import { idbPromise } from '../utils/helpers';
 
@@ -73,7 +73,7 @@ const SearchApparel = () => {
     useEffect(() => {
       dispatch({ type: CLEAR_QUERY});
     }, [currentCategory]);
-    
+
     // loading screen until product data is returned
     if(loading){
         return(
