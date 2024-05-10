@@ -68,12 +68,16 @@ export const GET_PRODUCTS = gql`
 `;
 
 export const GET_TYPE_PRODUCTS = gql`
- query getTypeProducts($category: ID!) {
-  product(category: $category) {
-    category
+ query getTypeProducts($name: String!) {
+  getTypeProducts(name: $name) {
+    _id
+    category {
+      _id
+      name
+    }
     count
-    description
     image
+    description
     price
     title
   }
