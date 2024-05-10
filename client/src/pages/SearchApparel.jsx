@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_PRODUCTS } from '../utils/queries';
 import { ADD_TOP, ADD_ACCESSORIES } from '../utils/mutations';
-import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
+import { CLEAR_QUERY, SET_QUERY, UPDATE_PRODUCTS, UPDATE_CURRENT_CATEGORY } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 import { idbPromise } from '../utils/helpers';
 
@@ -16,11 +16,11 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 const SearchApparel = () => {
     const [state, dispatch] = useStoreContext();
 
-    const { searchQuery, currentCategory } = state;
+    const { searchQuery, currentCategory, products } = state;
 
     // useQuery hook
     // get all products from database
-    const { loading, data: productData } = useQuery(GET_PRODUCTS);
+    const { loading, data: productData, refetch } = useQuery(GET_PRODUCTS);
 
     useEffect(() => {
         if (productData) {
@@ -42,17 +42,8 @@ const SearchApparel = () => {
       }, [productData, loading, dispatch]);
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+      event.preventDefault();
 
-        try{
-            const results = productData.getProducts.filter((product) => 
-                                                            product.title.toLowerCase().includes(searchQuery.toLowerCase()));
-            console.log(results);
-        }
-        catch(err){
-            console.error(err);
-        }
-        
     }
 
     // update search input state
@@ -62,19 +53,27 @@ const SearchApparel = () => {
             searchQuery: event.target.value
         });
     };
-  
+
     function filterProducts() {
-        console.log(currentCategory);
-
-        if (!currentCategory) {
-          return state.products;
-        }
-    
-        return state.products.filter(
-          (product) => product.category._id === currentCategory
-        );
+      if (!currentCategory && !searchQuery) {
+          return products;
+      } 
+  
+      if (searchQuery) {
+          return products.filter((product) => 
+              product.title.toLowerCase().includes(searchQuery.toLowerCase())
+          );
       }
+      
+      return products.filter(
+          (product) => product.category._id === currentCategory
+      );
+    };
 
+    useEffect(() => {
+      dispatch({ type: CLEAR_QUERY});
+    }, [currentCategory]);
+    
     // loading screen until product data is returned
     if(loading){
         return(
@@ -108,13 +107,14 @@ const SearchApparel = () => {
         <Container maxWidth='90%'>
             <Grid columns={{ initial: '1', md: '3', lg:'4', xl:'5' }} gap='3' width='auto'>
                 {filterProducts().map((product) => (
-                <Product product={product}/>
+                <Product key={product._id} product={product}/>
                 ))}
             </Grid>
         </Container>
 
         </>
     )
+
 };
 
 export default SearchApparel;
