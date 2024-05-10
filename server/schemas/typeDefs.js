@@ -21,6 +21,7 @@ const typeDefs = `
     image: String
     price: Float
     title: String
+    purchaseQty: Int
   }
 
   type Order {
