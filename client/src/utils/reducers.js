@@ -7,7 +7,8 @@ import {
     UPDATE_CATEGORIES,
     UPDATE_CURRENT_CATEGORY,
     CLEAR_CART,
-    TOGGLE_CART
+    CLEAR_QUERY,
+    SET_QUERY
   } from "./actions";
   
   export const reducer = (state, action) => {
@@ -21,7 +22,6 @@ import {
       case ADD_TO_CART:
         return {
           ...state,
-          cartOpen: true,
           cart: [...state.cart, action.product],
         };
   
@@ -34,7 +34,6 @@ import {
       case UPDATE_CART_QUANTITY:
         return {
           ...state,
-          cartOpen: true,
           cart: state.cart.map(product => {
             if (action._id === product._id) {
               product.purchaseQuantity = action.purchaseQuantity
@@ -57,16 +56,9 @@ import {
       case CLEAR_CART:
         return {
           ...state,
-          cartOpen: false,
           cart: []
         };
-  
-      case TOGGLE_CART:
-        return {
-          ...state,
-          cartOpen: !state.cartOpen
-        };
-  
+    
       case UPDATE_CATEGORIES:
         return {
           ...state,
@@ -77,7 +69,19 @@ import {
         return {
           ...state,
           currentCategory: action.currentCategory
-        }
+        };
+      
+      case CLEAR_QUERY: 
+        return {
+          ...state,
+          searchQuery: ''
+        };
+      
+      case SET_QUERY: 
+        return {
+          ...state,
+          searchQuery: action.searchQuery
+        };
   
       default:
         return state;

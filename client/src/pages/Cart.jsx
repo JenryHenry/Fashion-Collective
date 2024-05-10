@@ -4,7 +4,10 @@ import { useLazyQuery } from '@apollo/client';
 import { QUERY_CHECKOUT } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../utils/actions';
+import { ADD_MULTIPLE_TO_CART } from '../utils/actions';
+import Auth from '../utils/auth';
+import CartItem from '../components/CartItem';
+import { Box, Container, Grid, Heading, Text, TextField } from '@radix-ui/themes';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
 
@@ -33,14 +36,11 @@ const CartPage = () => {
     }
   }, [state.cart.length, dispatch]);
 
-  function toggleCart() {
-    dispatch({ type: TOGGLE_CART });
-  }
 
   function calculateTotal() {
     let sum = 0;
-    state.cart.forEach((item) => {
-      sum += item.price * item.purchaseQuantity;
+    state.cart.forEach((product) => {
+      sum += product.price * product.purchaseQty;
     });
     return sum.toFixed(2);
   }
@@ -54,11 +54,33 @@ const CartPage = () => {
     });
   }
 
+
   return (
     <>
-      <div>
-        <p>Cart Page Goes Here</p>
-      </div>
+      <Container pb='8' maxWidth='800px'>
+        <Heading as='h2' align='center'>Shopping Cart</Heading>
+      </Container>
+      {state.cart.length ? (
+        <div>
+          {state.cart.map((product) => (
+            <CartItem key={product._id} product={product} />
+          ))}
+
+          <div className="flex-row space-between">
+            <strong>Total: ${calculateTotal()}</strong>
+
+            {Auth.loggedIn() ? (
+              <button onClick={submitCheckout}>Checkout</button>
+            ) : (
+              <span>(Log In to Checkout)</span>
+            )}
+          </div>
+        </div>
+      ) : (
+        <h3>
+         No items in cart!
+        </h3>
+      )}
     </>
   );
 };
