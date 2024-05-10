@@ -1,7 +1,16 @@
 import { Box, Button, Card, Inset, Text } from "@radix-ui/themes";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { useStoreContext } from '../utils/GlobalState';
+import { ADD_TO_CART } from "../utils/actions";
 
 const Product = ({ product }) => {
+
+    const [state, dispatch] = useStoreContext(); // Accessing state and dispatch from context
+
+    const handleAddToCart = (item) => {
+        // Dispatch an action to add the product to the cart
+        dispatch({ type: ADD_TO_CART, product: item });
+    };
     
     return (
         <>
@@ -26,7 +35,7 @@ const Product = ({ product }) => {
                 <Text as='p' size='3' color='gray'> ${product.price}
                 </Text>
                 <Box align='center'>
-                    <Button>
+                    <Button onClick={handleAddToCart(product)}>
                         <ShoppingCartOutlinedIcon /> Add to Cart
                     </Button>
                 </Box>
