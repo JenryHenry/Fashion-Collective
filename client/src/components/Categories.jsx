@@ -8,12 +8,14 @@ import {
 import { GET_CATEGORIES, GET_TYPE_PRODUCTS } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 
+import { Box, Flex, SegmentedControl } from '@radix-ui/themes';
+
 function Categories({ setCategoryProducts }) {
   const [state, dispatch] = useStoreContext();
 
   const { categories } = state;
 
-  const { data: categoryData } = useQuery(GET_CATEGORIES);
+  const { loading, data: categoryData } = useQuery(GET_CATEGORIES);
 
   // const[getCategoryProducts, { loading, data: categoryProducts }] = useLazyQuery(GET_TYPE_PRODUCTS);
 
@@ -36,33 +38,17 @@ function Categories({ setCategoryProducts }) {
     }
   }, [categoryData, loading, dispatch]);
 
-  const handleClick = async (event) => {
-    event.preventDefault();
-
-    // const category = event.target.textContent;
-
-    // try {
-    //   await getCategoryProducts({ variables: { name: category } }); 
-
-    //   if(categoryProducts){
-    //     setCategoryProducts(categoryProducts);
-    //   }
-
-    // } catch (err) {
-    //   console.error(err);
-    // }
-    dispatch({
-      type: UPDATE_CURRENT_CATEGORY,
-      currentCategory: id,
-    });
-  };
-
   return (
     <Flex wrap='wrap' direction='column'>
     <Box as='div' align='center' pb='6'>
         <SegmentedControl.Root size='2'>
           {categories.map((category) => (
-            <SegmentedControl.Item key={category._id} value={category.name} onClick={() => handleClick(category._id)}>{category.name}</SegmentedControl.Item>
+            <SegmentedControl.Item key={category._id} value={category.name} onClick={(event) => {
+              event.preventDefault();
+              dispatch({
+                type: UPDATE_CURRENT_CATEGORY,
+                currentCategory: category._id,
+              });}}>{category.name}</SegmentedControl.Item>
           ))}
         </SegmentedControl.Root>
     </Box>
@@ -71,47 +57,3 @@ function Categories({ setCategoryProducts }) {
 }
 
 export default Categories;
-
-// import { Box, Flex, SegmentedControl } from '@radix-ui/themes';
-
-// function Categories({ setCategoryProducts, setSearch }) {
-//   const { loading, data: categoryData } = useQuery(GET_CATEGORIES);
-
-//   const[getCategoryProducts, { data: categoryProducts }] = useLazyQuery(GET_TYPE_PRODUCTS);
-
-//   const handleClick = async (event) => {
-//     event.preventDefault();
-
-//     const selectedCategory = event.target.textContent;
-
-//     try {
-//       setSearch('');
-
-//       await getCategoryProducts({ variables: { name: selectedCategory } }); 
-
-//       console.log(categoryProducts);
-
-//       if(categoryProducts){
-//         setCategoryProducts(categoryProducts);
-//       }
-
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-
-//   if(!loading){
-//     return (
-//       <Flex wrap='wrap' direction='column'>
-//       <Box as='div' align='center' pb='6'>
-//           <SegmentedControl.Root size='2' onClick={handleClick}>
-//             {categoryData.categories.map((category) => (
-//               <SegmentedControl.Item key={category._id} value={category.name} >{category.name}</SegmentedControl.Item>
-//             ))}
-//           </SegmentedControl.Root>
-//       </Box>
-//       </Flex>
-//     );
-//   }
-// }

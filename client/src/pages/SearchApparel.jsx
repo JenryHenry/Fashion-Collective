@@ -20,7 +20,7 @@ const SearchApparel = () => {
 
     // useQuery hook
     // get all products from database
-    const { loading, data: productData, refetch } = useQuery(GET_PRODUCTS);
+    const { loading, data: productData } = useQuery(GET_PRODUCTS);
 
     useEffect(() => {
         if (productData) {
@@ -43,7 +43,6 @@ const SearchApparel = () => {
 
     const handleSubmit = async (event) => {
       event.preventDefault();
-
     }
 
     // update search input state

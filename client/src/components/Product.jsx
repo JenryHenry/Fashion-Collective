@@ -10,6 +10,7 @@ const Product = ({ product }) => {
     const handleAddToCart = (item) => {
         // Dispatch an action to add the product to the cart
         dispatch({ type: ADD_TO_CART, product: item });
+
     };
     
     return (
@@ -35,7 +36,7 @@ const Product = ({ product }) => {
                 <Text as='p' size='3' color='gray'> ${product.price}
                 </Text>
                 <Box align='center'>
-                    <Button onClick={handleAddToCart(product)}>
+                    <Button onClick={() => handleAddToCart(product)}>
                         <ShoppingCartOutlinedIcon /> Add to Cart
                     </Button>
                 </Box>
