@@ -9,7 +9,7 @@ import { idbPromise } from '../utils/helpers';
 import Categories from '../components/Categories';
 import Product from '../components/Product';
 
-import { Container, Grid, Heading, TextField } from '@radix-ui/themes';
+import { Box, Container, Grid, Heading, Text, TextField } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
@@ -74,12 +74,6 @@ const SearchApparel = () => {
       dispatch({ type: CLEAR_QUERY});
     }, [currentCategory]);
 
-    // loading screen until product data is returned
-    if(loading){
-        return(
-            <p>Please wait...</p>
-        );
-    }
 
     return (
         <>
