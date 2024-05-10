@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import { GET_PRODUCTS } from '../utils/queries';
 import { ADD_TOP, ADD_ACCESSORIES } from '../utils/mutations';
 import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
