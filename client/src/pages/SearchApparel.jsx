@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_PRODUCTS } from '../utils/queries';
 import { ADD_TOP, ADD_ACCESSORIES } from '../utils/mutations';
-import { UPDATE_PRODUCTS } from '../utils/actions';
+import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 import { idbPromise } from '../utils/helpers';
 
@@ -15,13 +15,15 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const SearchApparel = () => {
     const [state, dispatch] = useStoreContext();
+    // holds search field data
+    const { searchQuery } = state;
 
     // useQuery hook
     // get all products from database
     const { loading, data: productData } = useQuery(GET_PRODUCTS);
 
     useEffect(() => {
-        if (productData.getProducts) {
+        if (productData) {
           dispatch({
             type: UPDATE_PRODUCTS,
             products: productData.getProducts,
@@ -37,18 +39,14 @@ const SearchApparel = () => {
             });
           });
         }
-      }, [productData.getProducts, loading, dispatch]);
-
-    // useState hook
-    // holds search field data
-    const [search, setSearch] = useState('');
+      }, [productData, loading, dispatch]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try{
             const results = productData.getProducts.filter((product) => 
-                                                            product.title.toLowerCase().includes(search.toLowerCase()));
+                                                            product.title.toLowerCase().includes(searchQuery.toLowerCase()));
             console.log(results);
         }
         catch(err){
@@ -59,7 +57,10 @@ const SearchApparel = () => {
 
     // update search input state
     const handleChange = (event) => {
-        setSearch(event.target.value)
+        dispatch({
+            type: SET_QUERY,
+            searchQuery: event.target.value
+        });
     };
   
 
@@ -82,7 +83,7 @@ const SearchApparel = () => {
                     size='3'
                     placeholder='Search'
                     name='product'
-                    value={search}
+                    value={searchQuery}
                     onChange={handleChange}
                     >
                     <TextField.Slot>
