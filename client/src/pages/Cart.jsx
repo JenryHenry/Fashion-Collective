@@ -7,6 +7,7 @@ import { useStoreContext } from '../utils/GlobalState';
 import { ADD_MULTIPLE_TO_CART } from '../utils/actions';
 import Auth from '../utils/auth';
 import CartItem from '../components/CartItem';
+import { Box, Container, Grid, Heading, Text, TextField } from '@radix-ui/themes';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
 
@@ -39,7 +40,7 @@ const CartPage = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach((product) => {
-      sum += product.price * product.purchaseQuantity;
+      sum += product.price * product.purchaseQty;
     });
     return sum.toFixed(2);
   }

@@ -30,7 +30,7 @@ const CartItem = ({ product }) => {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: product._id,
-        purchaseQuantity: parseInt(value)
+        purchaseQty: parseInt(value)
       });
       idbPromise('cart', 'put', { ...product, purchaseQuantity: parseInt(value) });
 
@@ -64,7 +64,7 @@ const CartItem = ({ product }) => {
           <input
             type="number"
             placeholder="1"
-            value={product.purchaseQuantity}
+            value={product.purchaseQty}
             onChange={onChange}
           />
           <span
