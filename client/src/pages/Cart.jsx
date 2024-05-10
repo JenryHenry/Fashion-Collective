@@ -56,8 +56,9 @@ const CartPage = () => {
 
   return (
     <>
-    <div className="cart">
-      <h2>Shopping Cart</h2>
+      <Container pb='8' maxWidth='800px'>
+        <Heading as='h2' align='center'>Shopping Cart</Heading>
+      </Container>
       {state.cart.length ? (
         <div>
           {state.cart.map((product) => (
@@ -79,7 +80,6 @@ const CartPage = () => {
          No items in cart!
         </h3>
       )}
-    </div>
     </>
   );
 };

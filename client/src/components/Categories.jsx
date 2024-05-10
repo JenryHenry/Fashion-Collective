@@ -17,7 +17,6 @@ function Categories() {
 
   const { loading, data: categoryData } = useQuery(GET_CATEGORIES);
 
-  // const[getCategoryProducts, { loading, data: categoryProducts }] = useLazyQuery(GET_TYPE_PRODUCTS);
 
   useEffect(() => {
     if (categoryData) {
