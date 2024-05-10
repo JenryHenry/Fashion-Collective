@@ -5,6 +5,8 @@ import { QUERY_CHECKOUT } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 import { ADD_MULTIPLE_TO_CART } from '../utils/actions';
+import Auth from '../utils/auth';
+import CarItem from '../components/CartItem';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
 
@@ -56,9 +58,31 @@ const CartPage = () => {
 
   return (
     <>
-      <div>
-        <p>Cart Page Goes Here</p>
-      </div>
+    <div className="cart">
+      <h2>Shopping Cart</h2>
+      {state.cart.length ? (
+        <div>
+          {state.cart.map((item) => (
+            <CartItem key={item._id} item={item} />
+          ))}
+
+          <div className="flex-row space-between">
+            <strong>Total: ${calculateTotal()}</strong>
+
+            {Auth.loggedIn() ? (
+              <button onClick={submitCheckout}>Checkout</button>
+            ) : (
+              <span>(Log In to Checkout)</span>
+            )}
+          </div>
+        </div>
+      ) : (
+        <h3>
+         No items in cart!
+        </h3>
+      )}
+    </div>
+  );
     </>
   );
 };
