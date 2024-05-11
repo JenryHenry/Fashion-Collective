@@ -11,12 +11,13 @@ import {
           Container,
           Flex,
           Heading,
+          Link,
           Text,
           TextField,
         } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
 
-const LoginForm = ({ switchForm }) => {
+const LoginForm = () => {
 
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [showAlert, setShowAlert] = useState(false);
@@ -91,14 +92,15 @@ const LoginForm = ({ switchForm }) => {
 
           {/* Buttons: Create account (switch to signup) and Login */}
           <Flex gap='4' mt='4' justify='end'>
-            {/* If this button is clicked, it will switch to the signup form */}
+            {/* If this button is clicked, it will switch to the signup page */}
+            <Link href='/signup'>
             <Button
               variant='soft'
-              onClick={switchForm}
               type='button'
             >
               Create account
             </Button>
+            </Link>
             <Button
               disabled={!(userFormData.email && userFormData.password)}
               type='submit'

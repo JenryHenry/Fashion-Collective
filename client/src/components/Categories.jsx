@@ -13,8 +13,6 @@ const Categories = () => {
 
   const { categories } = state;
 
-  console.log(categories);
-
   const { loading, data } = useQuery(GET_CATEGORIES);
 
   const[getCategoryProducts, { loading: loadingProducts, data: categoryProducts }] = useLazyQuery(GET_TYPE_PRODUCTS);
@@ -33,8 +31,8 @@ const Categories = () => {
   
   if(!loading){
     return(
-      <Flex justify='center' pb='6'>
-        <Tabs.Root>
+      <Flex asChild justify='center' pb='6' wrap='wrap'>
+        <Tabs.Root wrap='wrap'>
           <Tabs.List>
             {data.categories.map((category) => (
               <Tabs.Trigger
