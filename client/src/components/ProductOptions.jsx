@@ -3,6 +3,8 @@ import { ADD_TO_CART } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 import { idbPromise } from '../utils/helpers';
 
+import Auth from '../utils/auth';
+
 import { Button, Flex } from '@radix-ui/themes';
 import * as Toast from '@radix-ui/react-toast';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -34,6 +36,13 @@ const ProductOptions = ({ product }) => {
         idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
     };
 
+    // handleAddToOutfit method
+    const handleAddToOutfit = (event) => {
+        return console.log('add to outfit button clicked!');
+        dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
+        idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
+    };
+
     // pickSuccessWord function
     // Picks a random successful word to notify user of successful action
     const pickSuccessWord = () => {
@@ -58,38 +67,68 @@ const ProductOptions = ({ product }) => {
     }
 
     // Render product options to add clothing item to outfit or cart
+    // If user is logged in, then the add to outfit button will appear
     return(
         <>
         {   
             <Flex key={product._id} gap='5' justify='center' wrap='wrap' pt='3'>
-                <Button 
-                    type='button' 
-                    aria-label='Add Item to an Outfit' 
-                    name='addToOutfit'
-                >
-                <AddOutlinedIcon /> Add to Outfit
-                </Button>
-                <Button 
-                    type='button' 
-                    aria-label='Add One Item to Cart' 
-                    name='addToCart' 
-                    onClick={() => {
-                        handleAddToCart(product);
-                        setOpen(false);
-                        window.clearTimeout(timerRef.current);
-                        timerRef.current = window.setTimeout(() => {
-                            setOpen(true);
-                        }, 100);
-                    }}
-                >
-                <ShoppingCartOutlinedIcon /> Add to Cart
-                </Button>
-                <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
-                    <Flex direction='column'>
-                    <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
-                    <Toast.Description>Added {product.title} to cart.</Toast.Description>
-                    </Flex>
-                </Toast.Root>
+                { Auth.loggedIn() ? 
+                    <>
+                    <Button 
+                        type='button' 
+                        aria-label='Add Item to an Outfit' 
+                        name='addToOutfit'
+                        onClick={handleAddToOutfit}
+                    >
+                    <AddOutlinedIcon /> Add to Outfit
+                    </Button>
+                    <Button 
+                        type='button' 
+                        aria-label='Add One Item to Cart' 
+                        name='addToCart' 
+                        onClick={() => {
+                            handleAddToCart(product);
+                            setOpen(false);
+                            window.clearTimeout(timerRef.current);
+                            timerRef.current = window.setTimeout(() => {
+                                setOpen(true);
+                            }, 100);
+                        }}
+                    >
+                    <ShoppingCartOutlinedIcon /> Add to Cart
+                    </Button>
+                    <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
+                        <Flex direction='column'>
+                        <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
+                        <Toast.Description>Added {product.title} to cart.</Toast.Description>
+                        </Flex>
+                    </Toast.Root>
+                    </>
+                :
+                    <>
+                    <Button 
+                        type='button' 
+                        aria-label='Add One Item to Cart' 
+                        name='addToCart' 
+                        onClick={() => {
+                            handleAddToCart(product);
+                            setOpen(false);
+                            window.clearTimeout(timerRef.current);
+                            timerRef.current = window.setTimeout(() => {
+                                setOpen(true);
+                            }, 100);
+                        }}
+                    >
+                    <ShoppingCartOutlinedIcon /> Add to Cart
+                    </Button>
+                    <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
+                        <Flex direction='column'>
+                        <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
+                        <Toast.Description>Added {product.title} to cart.</Toast.Description>
+                        </Flex>
+                    </Toast.Root>
+                    </>
+                }
             </Flex>
         }
         </>

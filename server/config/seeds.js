@@ -57,7 +57,7 @@ db.once('open', async () => {
         {
             category: categories[1]._id,
             count: 74,
-            description: `Women's black and white stripped top. (Photo by Vecteezy.com)`,
+            description: `Women's black and white striped top. (Photo by Vecteezy.com)`,
             image: `vecteezy_striped-top.jpg`,
             price: 15.99,
             title: 'Striped Top'
@@ -137,10 +137,10 @@ db.once('open', async () => {
         {
             category: categories[6]._id,
             count: 82,
-            description: `Men's red and white stripped shorts. (Photo by Vecteezy.com)`,
+            description: `Men's red and white striped shorts. (Photo by Vecteezy.com)`,
             image: 'vecteezy-striped-shorts.jpg',
             price: 21.99,
-            title: 'Stripped Shorts'
+            title: 'Striped Shorts'
         },
         {
             category: categories[7]._id,
