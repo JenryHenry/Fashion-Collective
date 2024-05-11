@@ -28,11 +28,6 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
-    purchaseQty: {
-        type: Number,
-        required: false,
-        default: 0
-    }
 });
 
 const Product = model('Product', productSchema);
