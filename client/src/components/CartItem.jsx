@@ -3,6 +3,7 @@ import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
 import { idbPromise } from "../utils/helpers";
 
 import { Box, Button, Card, Inset, Text } from "@radix-ui/themes";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const CartItem = ({ product }) => {
 
@@ -32,11 +33,11 @@ const CartItem = ({ product }) => {
         _id: product._id,
         purchaseQty: parseInt(value)
       });
-      idbPromise('cart', 'put', { ...product, purchaseQuantity: parseInt(value) });
+      idbPromise('cart', 'put', { ...product, purchaseQty: parseInt(value) });
 
     }
   }
-  console.log(product);
+
   return (
   <>
     <Box key={product._id} maxWidth='350px'>
@@ -49,7 +50,7 @@ const CartItem = ({ product }) => {
               display: 'block',
               objectFit: 'cover',
               width: '100%',
-              height: 350,
+              height: '350px',
             }}
           />
         </Inset>
@@ -59,21 +60,20 @@ const CartItem = ({ product }) => {
         </Text>
         <Text as='p' size='3' color='gray'> ${product.price}
         </Text>
-        <Box align='center'>
-          <span>Qty:</span>
-          <input
+        <br/>
+        <Text as='p' size='3' color='gray'> 
+          Quantity: <input
             type="number"
             placeholder="1"
             value={product.purchaseQty}
             onChange={onChange}
           />
-          <span
-            role="img"
-            aria-label="trash"
-            onClick={() => removeFromCart(product)}
-          >
-            🗑️
-          </span>
+        </Text>
+        <br/>
+        <Box align='center'>
+          <Button onClick={() => removeFromCart(product)}>
+              <DeleteOutlineOutlinedIcon /> Remove From Cart
+          </Button>
         </Box>
       </Card>
     </Box>

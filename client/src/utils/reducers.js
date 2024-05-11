@@ -36,7 +36,7 @@ import {
           ...state,
           cart: state.cart.map(product => {
             if (action._id === product._id) {
-              product.purchaseQuantity = action.purchaseQuantity
+              product.purchaseQty = action.purchaseQty
             }
             return product
           })

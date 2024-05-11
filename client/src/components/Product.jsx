@@ -12,8 +12,8 @@ const Product = () => {
 
     const handleAddToCart = (item) => {
         // Dispatch an action to add the product to the cart
-        dispatch({ type: ADD_TO_CART, product: item });
-        idbPromise('cart', 'put', { ...item });
+        dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
+        idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
     };
 
     // Render message to user if no categories have been selected or no search performed
