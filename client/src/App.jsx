@@ -39,12 +39,14 @@ function App() {
     <ApolloProvider client={client}>
       <StoreProvider>
         <Theme radius='large'>
+          <Box width='100vw'>
             <Navbar />
             <Box pt='5' pb='5'>
             <Flex asChild align='center' justify='center'>
               <Outlet />
             </Flex>
             </Box>
+          </Box>
         </Theme>
       </StoreProvider>
     </ApolloProvider>

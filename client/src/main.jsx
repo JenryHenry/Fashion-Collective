@@ -8,7 +8,8 @@ import Home from './pages/Home.jsx';
 import SearchApparel from './pages/SearchApparel.jsx';
 import Cart from './pages/Cart.jsx';
 import Outfits from './pages/Outfits.jsx';
-import Login from './pages/Login.jsx';
+import LoginForm from './components/LoginForm.jsx';
+import SignupForm from './components/SignupForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: <LoginForm />,
+      },
+      {
+        path: '/signup',
+        element: <SignupForm />,
       }
     ],
   },
