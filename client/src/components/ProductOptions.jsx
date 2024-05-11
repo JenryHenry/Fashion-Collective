@@ -82,53 +82,33 @@ const ProductOptions = ({ product }) => {
                     >
                     <AddOutlinedIcon /> Add to Outfit
                     </Button>
-                    <Button 
-                        type='button' 
-                        aria-label='Add One Item to Cart' 
-                        name='addToCart' 
-                        onClick={() => {
-                            handleAddToCart(product);
-                            setOpen(false);
-                            window.clearTimeout(timerRef.current);
-                            timerRef.current = window.setTimeout(() => {
-                                setOpen(true);
-                            }, 100);
-                        }}
-                    >
-                    <ShoppingCartOutlinedIcon /> Add to Cart
-                    </Button>
-                    <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
-                        <Flex direction='column'>
-                        <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
-                        <Toast.Description>Added {product.title} to cart.</Toast.Description>
-                        </Flex>
-                    </Toast.Root>
                     </>
-                :
-                    <>
-                    <Button 
-                        type='button' 
-                        aria-label='Add One Item to Cart' 
-                        name='addToCart' 
-                        onClick={() => {
-                            handleAddToCart(product);
-                            setOpen(false);
-                            window.clearTimeout(timerRef.current);
-                            timerRef.current = window.setTimeout(() => {
-                                setOpen(true);
-                            }, 100);
-                        }}
-                    >
-                    <ShoppingCartOutlinedIcon /> Add to Cart
-                    </Button>
-                    <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
-                        <Flex direction='column'>
-                        <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
-                        <Toast.Description>Added {product.title} to cart.</Toast.Description>
-                        </Flex>
-                    </Toast.Root>
-                    </>
-                }
+                    :
+                    null
+                }  
+                <>
+                <Button 
+                    type='button' 
+                    aria-label='Add One Item to Cart' 
+                    name='addToCart' 
+                    onClick={() => {
+                        handleAddToCart(product);
+                        setOpen(false);
+                        window.clearTimeout(timerRef.current);
+                        timerRef.current = window.setTimeout(() => {
+                            setOpen(true);
+                        }, 100);
+                    }}
+                >
+                <ShoppingCartOutlinedIcon /> Add to Cart
+                </Button>
+                <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
+                    <Flex direction='column'>
+                    <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
+                    <Toast.Description>Added {product.title} to cart.</Toast.Description>
+                    </Flex>
+                </Toast.Root>
+                </>
             </Flex>
         }
         </>
