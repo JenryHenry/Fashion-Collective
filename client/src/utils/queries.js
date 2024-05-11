@@ -98,8 +98,8 @@ export const GET_SINGLE_OUTFIT = gql`
 `;
 
 export const GET_PRODUCTS = gql`
- query getProducts {
-  getProducts {
+ query getProducts($title: String!) {
+  getProducts(title: $title) {
     _id
     category {
       _id
@@ -110,17 +110,22 @@ export const GET_PRODUCTS = gql`
     image
     price
     title
+    purchaseQty
   }
  }
 `;
 
 export const GET_TYPE_PRODUCTS = gql`
- query getTypeProducts($category: ID!) {
-  product(category: $category) {
-    category
+ query getTypeProducts($_id: ID!) {
+  getTypeProducts(_id: $_id) {
+    _id
+    category {
+      _id
+      name
+    }
     count
-    description
     image
+    description
     price
     title
   }

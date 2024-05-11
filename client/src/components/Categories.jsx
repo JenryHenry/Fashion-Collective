@@ -1,59 +1,75 @@
 import { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import { useStoreContext } from '../utils/GlobalState';
-import {
-  UPDATE_CATEGORIES,
-  UPDATE_CURRENT_CATEGORY,
-} from '../utils/actions';
-import { GET_CATEGORIES } from '../utils/queries';
+import { UPDATE_CATEGORIES, UPDATE_CURRENT_CATEGORY, UPDATE_PRODUCTS } from '../utils/actions';
+import { GET_CATEGORIES, GET_TYPE_PRODUCTS } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 
-import { Box, Flex, SegmentedControl } from '@radix-ui/themes';
+import { Flex, Tabs } from '@radix-ui/themes';
 
-function Categories() {
+const Categories = () => {
+  
   const [state, dispatch] = useStoreContext();
 
   const { categories } = state;
 
-  const { loading, data: categoryData } = useQuery(GET_CATEGORIES);
+  console.log(categories);
+
+  const { loading, data } = useQuery(GET_CATEGORIES);
+
+  const[getCategoryProducts, { loading: loadingProducts, data: categoryProducts }] = useLazyQuery(GET_TYPE_PRODUCTS);
 
   useEffect(() => {
-    if (categoryData) {
+    if (data) {
       dispatch({
         type: UPDATE_CATEGORIES,
-        categories: categoryData.categories,
+        categories: data.categories,
       });
-      categoryData.categories.forEach((category) => {
+      data.categories.forEach((category) => {
         idbPromise('categories', 'put', category);
       });
-    } else if (!loading) {
-      idbPromise('categories', 'get').then((categories) => {
-        dispatch({
-          type: UPDATE_CATEGORIES,
-          categories: categories,
-        });
-      });
     }
-  }, [categoryData, loading, dispatch]);
+  }, [data, loading, dispatch]);
+  
+  if(!loading){
+    return(
+      <Flex justify='center' pb='6'>
+        <Tabs.Root>
+          <Tabs.List>
+            {data.categories.map((category) => (
+              <Tabs.Trigger
+              key={category._id}
+              value={category.name}
+              onClick=
+                { 
+                  async(event) => {
+                  event.preventDefault();
 
-  const handleClick = (id) => {
-    dispatch({
-      type: UPDATE_CURRENT_CATEGORY,
-      currentCategory: id,
-    });
-  };
+                  dispatch({
+                    type: UPDATE_CURRENT_CATEGORY,
+                    currentCategory: category._id,
+                  });
 
-  return (
-    <Flex wrap='wrap' direction='column'>
-    <Box as='div' align='center' pb='6'>
-        <SegmentedControl.Root size='2'>
-          {categories.map((category) => (
-            <SegmentedControl.Item key={category._id} value={category.name}>{category.name}</SegmentedControl.Item>
-          ))}
-        </SegmentedControl.Root>
-    </Box>
-    </Flex>
-  );
+                  const response = await getCategoryProducts({ variables: { _id: category._id } });
+                  
+                  dispatch({
+                    type: UPDATE_PRODUCTS,
+                    products: response.data.getTypeProducts,
+                  });
+                
+                  response.data.getTypeProducts.forEach((product) => {
+                    idbPromise('products', 'put', product);
+                  });
+                }}
+              >
+              {category.name}
+              </Tabs.Trigger>
+            ))}
+          </Tabs.List>
+        </Tabs.Root>
+      </Flex>
+    );
+  }
 }
 
 export default Categories;

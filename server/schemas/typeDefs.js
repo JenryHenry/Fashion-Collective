@@ -21,6 +21,7 @@ const typeDefs = `
     image: String
     price: Float
     title: String
+    purchaseQty: Int
   }
 
   type Order {
@@ -62,8 +63,8 @@ const typeDefs = `
     outfits: [Outfit]
     categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
-    getProducts: [Product]
-    getTypeProducts(category: ID!): [Product]
+    getProducts(title: String!): [Product]
+    getTypeProducts(_id: ID!): [Product]
   }
 
   type Mutation {
