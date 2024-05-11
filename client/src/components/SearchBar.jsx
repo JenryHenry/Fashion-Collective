@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
 import { GET_PRODUCTS } from '../utils/queries';
@@ -11,7 +12,10 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 const SearchBar = () => {
     const [state, dispatch] = useStoreContext();
 
-    const { searchQuery } = state;
+    // useState hook
+    // this will hold any changes to the search input before the form is submmited
+    // helps prevent excessive dispatches and rerendering
+    const [input, setInput] = useState('');
 
     // useLazyQuery hook
     // getProducts must be called to get all products from database
@@ -20,10 +24,7 @@ const SearchBar = () => {
     // handleChange method
     // update search input state
     const handleChange = async (event) => {
-        dispatch({ 
-            type: SET_QUERY,
-            searchQuery: event.target.value,
-        });
+        setInput(event.target.value);
     };
 
     // handleSubmit method
@@ -33,8 +34,15 @@ const SearchBar = () => {
 
         try{
             // only products that match search query will be returned
-            const response = await getProducts({ variables: { title: searchQuery } });
+            const response = await getProducts({ variables: { title: input } });
 
+            // update global state of search query
+            dispatch({ 
+                type: SET_QUERY,
+                searchQuery: input,
+            });
+
+            // update global state of products array
             dispatch({
                 type: UPDATE_PRODUCTS,
                 products: response.data.getProducts,
@@ -60,7 +68,7 @@ const SearchBar = () => {
                     size='3'
                     placeholder='Search'
                     name='product'
-                    value={searchQuery}
+                    value={input}
                     onChange={handleChange}
                     >
                     <TextField.Slot aria-label='Search Icon'>
