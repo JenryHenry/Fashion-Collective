@@ -4,11 +4,10 @@ import { GET_PRODUCTS } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 
-import { Container, Heading, TextField } from '@radix-ui/themes';
+import { Button, Container, Heading, TextField } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
-// SearchBar needs to utilize global state for current category so when you search for a keyword, it sets the current category to empty
 const SearchBar = () => {
     const [state, dispatch] = useStoreContext();
 
@@ -50,7 +49,7 @@ const SearchBar = () => {
         }
     }
 
-    return (
+    return(
         <Container pb='8' maxWidth='800px'>
             <Heading as='h2' align='center'>Search for Clothing</Heading>
             <Form.Root onSubmit={handleSubmit}>
@@ -64,14 +63,27 @@ const SearchBar = () => {
                     value={searchQuery}
                     onChange={handleChange}
                     >
-                    <TextField.Slot>
+                    <TextField.Slot aria-label='Search Icon'>
                         <SearchOutlinedIcon />
                     </TextField.Slot>
+                    <Button
+                    aria-label='Search for Clothes'
+                    name='search' 
+                    type='submit' 
+                    variant='solid'
+                    style={{ 
+                        height: 'auto', 
+                        borderTopLeftRadius:0, 
+                        borderBottomLeftRadius:0
+                        }}
+                    >
+                    Search
+                    </Button>
                     </TextField.Root>
                 </Form.Field>
             </Form.Root>
         </Container>
-    )
+    );
 };
 
 export default SearchBar;
