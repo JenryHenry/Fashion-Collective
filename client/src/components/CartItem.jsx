@@ -37,7 +37,7 @@ const CartItem = ({ product }) => {
 
     }
   }
-  console.log(product);
+
   return (
   <>
     <Box key={product._id} maxWidth='350px'>
