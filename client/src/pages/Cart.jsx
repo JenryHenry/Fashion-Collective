@@ -7,7 +7,7 @@ import { useStoreContext } from '../utils/GlobalState';
 import { ADD_MULTIPLE_TO_CART } from '../utils/actions';
 import Auth from '../utils/auth';
 import CartItem from '../components/CartItem';
-import { Box, Container, Grid, Heading, Text, TextField } from '@radix-ui/themes';
+import { Box, Container, Grid, Heading, Text, Strong, Button, Flex } from '@radix-ui/themes';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
 
@@ -57,30 +57,34 @@ const CartPage = () => {
 
   return (
     <>
-      <Container pb='8' maxWidth='800px'>
-        <Heading as='h2' align='center'>Shopping Cart</Heading>
-      </Container>
       {state.cart.length ? (
-        <div>
-          {state.cart.map((product) => (
-            <CartItem key={product._id} product={product} />
-          ))}
-
-          <div className="flex-row space-between">
-            <strong>Total: ${calculateTotal()}</strong>
-
-            {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
-            ) : (
-              <span>(Log In to Checkout)</span>
-            )}
-          </div>
-        </div>
+        <>
+        <Container pb='8' maxWidth='800px'>
+        <Heading as='h2' align='center'>Shopping Cart</Heading>
+          <Text as='p' size='5' align='center'><Strong>Total:</Strong> ${calculateTotal()}</Text>
+          {Auth.loggedIn() ? (
+            <Box align='center'>
+              <Button onClick={submitCheckout} >Checkout</Button>
+            </Box>
+          ) : (
+            <Text as='p' size='4' align='center'>Login to Checkout</Text>
+          )}
+        </Container>
+        <Container maxWidth='90%'>
+            <Flex gap='3' justify='center' width='auto' direction='row' wrap='wrap'>
+              {state.cart.map((product) => (
+              <CartItem key={product._id} product={product} />
+              ))}
+            </Flex>
+        </Container>.
+        </>
       ) : (
-        <h3>
-         No items in cart!
-        </h3>
-      )}
+        <Container pb='3' maxWidth='90%'>
+          <Heading as='h2' align='center'>Shopping Cart</Heading>
+          <br/>
+          <Text as='p' size='5' align='center'>No items in cart!</Text>
+        </Container>
+      )} 
     </>
   );
 };

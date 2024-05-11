@@ -50,7 +50,7 @@ const CartItem = ({ product }) => {
               display: 'block',
               objectFit: 'cover',
               width: '100%',
-              height: '100%',
+              height: '350px',
             }}
           />
         </Inset>
@@ -70,9 +70,11 @@ const CartItem = ({ product }) => {
           />
         </Text>
         <br/>
-        <Button onClick={() => removeFromCart(product)}>
-            <DeleteOutlineOutlinedIcon /> Remove From Cart
-        </Button>
+        <Box align='center'>
+          <Button onClick={() => removeFromCart(product)}>
+              <DeleteOutlineOutlinedIcon /> Remove From Cart
+          </Button>
+        </Box>
       </Card>
     </Box>
   </>                  
