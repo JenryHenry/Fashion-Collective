@@ -25,14 +25,37 @@ export const GET_USER = gql`
 `;
 
 export const GET_OUTFITS = gql`
- query getOutfits {
+ query outfits {
   outfits {
-    _id
     outfitName
-    top
-    bottom
-    shoes
-    accessories
+    top {
+      count
+      description
+      image
+      price
+      title
+    }
+    bottom {
+      count
+      description
+      image
+      price
+      title
+    }
+    shoes {
+      count
+      description
+      image
+      price
+      title
+    }
+    accessories {
+      count
+      description
+      image
+      price
+      title
+    }
   }
  }
 `;
@@ -42,10 +65,34 @@ export const GET_SINGLE_OUTFIT = gql`
   outfit(outfitName: $outfitName) {
     _id
     outfitName
-    top
-    bottom
-    shoes
-    accessories
+    top {
+      count
+      description
+      image
+      price
+      title
+    }
+    bottom {
+      count
+      description
+      image
+      price
+      title
+    }
+    shoes {
+      count
+      description
+      image
+      price
+      title
+    }
+    accessories {
+      count
+      description
+      image
+      price
+      title
+    }
   }
  }
 `;

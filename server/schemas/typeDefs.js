@@ -59,7 +59,7 @@ const typeDefs = `
   type Query {
     user(username: String!): User
     checkout(products: [ProductInput]): Checkout
-    outfits(username: String!): [Outfit]
+    outfits: [Outfit]
     categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
     getProducts: [Product]

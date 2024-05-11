@@ -1,4 +1,4 @@
-const { Category, User, Outfit, Product } = require('../models');
+const { Category, User, Product } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -44,11 +44,29 @@ const resolvers = {
       return { session: session.id };
     },
     outfits: async (parent, args, context) => {
-      const user = User.findById(context.user._id);
+      if (context.user) {
+      const user = await User.findById(context.user._id).populate({
+        path: 'outfits',
+        populate: [
+          {
+            path: 'top',
+          },
+          {
+            path: 'shoes',
+          },
+          {
+            path: 'bottom',
+          },
+          {
+            path: 'accessories',
+          }
+        ]
+      });
       return user.outfits;
+      }
     },
     getSingleOutfit: async (parent, args, context) => {
-      const user = User.findOne({ _id: context.user._id});
+      const user =await User.findOne({ _id: context.user._id});
       return user.outfits.find((outfit) => {return outfit.outfitName === args.outfitName})      
     },
     getProducts: async () => {
@@ -87,7 +105,7 @@ const resolvers = {
       if (context.user) {
         return await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { outfits: args } },
+          { $addToSet: { outfits: {args} } },
           { new: true, runValidators: true }
         );
       }
