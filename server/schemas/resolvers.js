@@ -30,7 +30,7 @@ const resolvers = {
             },
             unit_amount: product.price * 100,
           },
-          quantity: product.purchaseQuantity,
+          quantity: product.purchaseQty,
         });
       }
 
