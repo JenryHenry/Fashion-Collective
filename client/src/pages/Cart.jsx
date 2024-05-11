@@ -47,9 +47,20 @@ const CartPage = () => {
 
 
   function submitCheckout() {
+    const products = [];
+    for (const product of state.cart) {
+      products.push({
+        _id: product._id,
+        purchaseQty: product.purchaseQty,
+        title: product.title,
+        image: product.image,
+        price: product.price,
+        count: product.count
+      });
+    }
     getCheckout({
       variables: { 
-        products: [...state.cart],
+        products: products,
       },
     });
   }

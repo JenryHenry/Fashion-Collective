@@ -1,4 +1,4 @@
-const { Category, User, Outfit, Product } = require('../models');
+const { Category, User, Outfit, Product, Order } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -24,7 +24,7 @@ const resolvers = {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: product.name,
+              name: product.title,
               description: product.description,
               images: [`${url}/images/${product.image}`]
             },
