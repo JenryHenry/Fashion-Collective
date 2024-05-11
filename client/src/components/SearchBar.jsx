@@ -58,7 +58,7 @@ const SearchBar = () => {
     }
 
     return(
-        <Container pb='8' maxWidth='800px'>
+        <Container pb='8' width='90vw'>
             <Heading as='h2' align='center'>Search for Clothing</Heading>
             <Form.Root onSubmit={handleSubmit}>
                 <Form.Field>

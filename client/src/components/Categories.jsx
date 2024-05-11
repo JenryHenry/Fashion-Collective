@@ -31,8 +31,8 @@ const Categories = () => {
   
   if(!loading){
     return(
-      <Flex justify='center' pb='6'>
-        <Tabs.Root>
+      <Flex asChild justify='center' pb='6' wrap='wrap'>
+        <Tabs.Root wrap='wrap'>
           <Tabs.List>
             {data.categories.map((category) => (
               <Tabs.Trigger

@@ -2,8 +2,9 @@ import { ADD_TO_CART } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 import { idbPromise } from '../utils/helpers';
 
-import { Box, Button, Card, Inset, Text } from '@radix-ui/themes';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ProductOptions from './ProductOptions';
+
+import { Box, Card, Inset, Text } from '@radix-ui/themes';
 
 const Product = () => {
 
@@ -59,11 +60,7 @@ const Product = () => {
                         </Text>
                         <Text as='p' size='3' color='gray'> ${product.price}
                         </Text>
-                        <Box align='center'>
-                            <Button onClick={() => handleAddToCart(product)}>
-                                <ShoppingCartOutlinedIcon /> Add to Cart
-                            </Button>
-                        </Box>
+                        <ProductOptions />
                     </Card>
                 </Box>
             )
