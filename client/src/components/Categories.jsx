@@ -13,8 +13,6 @@ const Categories = () => {
 
   const { categories } = state;
 
-  console.log(categories);
-
   const { loading, data } = useQuery(GET_CATEGORIES);
 
   const[getCategoryProducts, { loading: loadingProducts, data: categoryProducts }] = useLazyQuery(GET_TYPE_PRODUCTS);
