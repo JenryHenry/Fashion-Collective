@@ -9,6 +9,7 @@ import { Outlet } from 'react-router-dom';
 import { StoreProvider } from './utils/GlobalState';
 
 import { Box, Flex, Theme } from '@radix-ui/themes';
+import * as Toast from '@radix-ui/react-toast';
 import Navbar from './components/Navbar';
 import './App.css';
 
@@ -40,12 +41,15 @@ function App() {
       <StoreProvider>
         <Theme radius='large'>
           <Box width='100vw'>
-            <Navbar />
-            <Box pt='5' pb='5'>
-            <Flex asChild align='center' justify='center'>
-              <Outlet />
-            </Flex>
-            </Box>
+            <Toast.Provider swipeDirection='right'>
+              <Navbar />
+              <Box pt='5' pb='5'>
+              <Flex asChild align='center' justify='center'>
+                <Outlet />
+              </Flex>
+              </Box>
+            <Toast.Viewport className='ToastViewport'/>
+            </Toast.Provider>
           </Box>
         </Theme>
       </StoreProvider>

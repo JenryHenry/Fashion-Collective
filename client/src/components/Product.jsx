@@ -1,6 +1,4 @@
-import { ADD_TO_CART } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
-import { idbPromise } from '../utils/helpers';
 
 import ProductOptions from './ProductOptions';
 
@@ -10,12 +8,6 @@ const Product = () => {
 
     // Accessing state and dispatch from context
     const [state, dispatch] = useStoreContext();
-
-    const handleAddToCart = (item) => {
-        // Dispatch an action to add the product to the cart
-        dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
-        idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
-    };
 
     // Render message to user if no categories have been selected or no search peformed (upon inital page load)
     if(!state.products.length && !state.searchQuery){
@@ -60,7 +52,7 @@ const Product = () => {
                         </Text>
                         <Text as='p' size='3' color='gray'> ${product.price}
                         </Text>
-                        <ProductOptions />
+                        <ProductOptions product={product}/>
                     </Card>
                 </Box>
             )

@@ -59,7 +59,7 @@ const SearchBar = () => {
 
     return(
         <Container pb='8' width='90vw'>
-            <Heading as='h2' align='center'>Search for Clothing</Heading>
+            <Heading as='h2' align='center' style={{ paddingBottom: 'var(--space-5)' }}>Search for Clothing</Heading>
             <Form.Root onSubmit={handleSubmit}>
                 <Form.Field>
                     <TextField.Root
