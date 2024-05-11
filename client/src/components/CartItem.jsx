@@ -3,6 +3,7 @@ import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
 import { idbPromise } from "../utils/helpers";
 
 import { Box, Button, Card, Inset, Text } from "@radix-ui/themes";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const CartItem = ({ product }) => {
 
@@ -49,7 +50,7 @@ const CartItem = ({ product }) => {
               display: 'block',
               objectFit: 'cover',
               width: '100%',
-              height: 350,
+              height: '100%',
             }}
           />
         </Inset>
@@ -59,22 +60,19 @@ const CartItem = ({ product }) => {
         </Text>
         <Text as='p' size='3' color='gray'> ${product.price}
         </Text>
-        <Box align='center'>
-          <span>Qty:</span>
-          <input
+        <br/>
+        <Text as='p' size='3' color='gray'> 
+          Quantity: <input
             type="number"
             placeholder="1"
             value={product.purchaseQty}
             onChange={onChange}
           />
-          <span
-            role="img"
-            aria-label="trash"
-            onClick={() => removeFromCart(product)}
-          >
-            🗑️
-          </span>
-        </Box>
+        </Text>
+        <br/>
+        <Button onClick={() => removeFromCart(product)}>
+            <DeleteOutlineOutlinedIcon /> Remove From Cart
+        </Button>
       </Card>
     </Box>
   </>                  
