@@ -29,6 +29,7 @@ export const GET_OUTFITS = gql`
   outfits {
     outfitName
     top {
+      _id
       count
       description
       image
@@ -36,6 +37,7 @@ export const GET_OUTFITS = gql`
       title
     }
     bottom {
+      _id
       count
       description
       image
@@ -43,6 +45,7 @@ export const GET_OUTFITS = gql`
       title
     }
     shoes {
+      _id
       count
       description
       image
