@@ -33,7 +33,7 @@ const CartItem = ({ product }) => {
         _id: product._id,
         purchaseQty: parseInt(value)
       });
-      idbPromise('cart', 'put', { ...product, purchaseQuantity: parseInt(value) });
+      idbPromise('cart', 'put', { ...product, purchaseQty: parseInt(value) });
 
     }
   }

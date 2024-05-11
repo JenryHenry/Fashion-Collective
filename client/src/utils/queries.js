@@ -63,7 +63,6 @@ export const GET_PRODUCTS = gql`
     image
     price
     title
-    purchaseQty
   }
  }
 `;
