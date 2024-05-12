@@ -198,6 +198,24 @@ db.once('open', async () => {
       shoes: products[7]._id,
     },
     {
+      outfitName: 'summer',
+      top: products[4]._id,
+      bottom: products[5]._id,
+      shoes: products[7]._id,
+    },
+    {
+      outfitName: 'winter',
+      top: products[1]._id,
+      bottom: products[5]._id,
+      shoes: products[8]._id,
+    },
+    {
+      outfitName: 'spring',
+      top: products[4]._id,
+      bottom: products[5]._id,
+      shoes: products[7]._id,
+    },
+    {
       outfitName: 'outfit3',
       top: products[12]._id,
       shoes: products[16]._id,
@@ -242,18 +260,21 @@ db.once('open', async () => {
         shoes: products[7]._id,
       },
       {
+        _id: outfits[2]._id,
         outfitName: 'summer',
         top: products[4]._id,
         bottom: products[5]._id,
         shoes: products[7]._id,
       },
       {
+        _id: outfits[3]._id,
         outfitName: 'winter',
         top: products[1]._id,
         bottom: products[5]._id,
         shoes: products[8]._id,
       },
       {
+        _id: outfits[4]._id,
         outfitName: 'spring',
         top: products[4]._id,
         bottom: products[5]._id,
@@ -274,7 +295,7 @@ db.once('open', async () => {
     ],
     outfits: [
       {
-        _id: outfits[2]._id,
+        _id: outfits[5]._id,
         outfitName: 'outfit3',
         top: products[12]._id,
         shoes: products[16]._id,

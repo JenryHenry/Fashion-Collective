@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { GET_OUTFITS } from '../utils/queries';
 import { useStoreContext } from '../utils/GlobalState';
@@ -12,22 +13,35 @@ const AddToOutfit = ({ product }) => {
     // Accessing state and dispatch from context
     const [state, dispatch] = useStoreContext();
 
+    // useState hook
+    // holds all user outfits
+    const [outfits, setOutfits] = useState([]);
+
     // useLazyQuery hook
     // getOutfits must be called to get all users outfits from database
     const [getOutfits, { loading, data }] = useLazyQuery(GET_OUTFITS);
 
+    // checkOutfits function 
     const checkOutfits = async () => {
-        const { data } = await Auth.getProfile();
-        const response = await getOutfits({ variables: { username: data.username } });
-        console.log(response.data.outfits);
+        const { data } = await getOutfits();
+        setOutfits(data.outfits);
     };
 
-    // handleAddToOutfit method
-    const handleAddToOutfit = async (item) => {
+    // addToNewOutfit method
+    const addToNewOutfit = async (item) => {
+        console.log(outfits);
+        console.log(item);
     };
 
-    // Render option to add clothing item to outfit
-    // Only appears if user is logged in
+    // addToExistingOutfit method
+    const addToExistingOutfit = async (item) => {
+        console.log(outfits);
+        console.log(item);
+    };
+
+    // Render options to add clothing item to new/existing outfit:
+    // If user is logged in, the Add to Outfit button display
+    // If user has saved outfits, the Add to Existing Outfit button displays
     return(
         <>
         {   
@@ -59,20 +73,28 @@ const AddToOutfit = ({ product }) => {
                             type='button' 
                             aria-label='Add Item to New Outfit' 
                             name='addToNewOutfit'
+                            onClick={() => addToNewOutfit(product)}
                         >
                         Add to New Outfit
                         </Button>
                     </AlertDialog.Action>
-                    <AlertDialog.Action>
-                        <Button 
-                            variant='soft'
-                            type='button' 
-                            aria-label='Add Item to Existing Outfit' 
-                            name='addToExistingOutfit'
-                        >
-                        Add to Existing Outfit
-                        </Button>
-                    </AlertDialog.Action>
+                    {    outfits.length ?
+                            <>
+                            <AlertDialog.Action>
+                            <Button 
+                                variant='soft'
+                                type='button' 
+                                aria-label='Add Item to Existing Outfit' 
+                                name='addToExistingOutfit'
+                                onClick={() => addToExistingOutfit(product)}
+                            >
+                            Add to Existing Outfit
+                            </Button>
+                            </AlertDialog.Action>
+                            </>
+                        :
+                            null
+                    }
                     <AlertDialog.Cancel>
                         <Button 
                             type='button'
