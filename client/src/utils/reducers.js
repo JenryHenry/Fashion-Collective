@@ -82,7 +82,7 @@ import {
           ...state,
           searchQuery: action.searchQuery
         };
-  
+
       default:
         return state;
     }
