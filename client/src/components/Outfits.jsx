@@ -2,6 +2,10 @@ import { Box, Grid, Button, Card, Text, HoverCard, Popover, DataList } from '@ra
 import { useMutation } from '@apollo/client';
 import { DELETE_TOP, DELETE_BOTTOM, DELETE_SHOES, DELETE_ACCESSORIES, DELETE_OUTFIT } from '../utils/mutations';
 import { kbdPropDefs } from '@radix-ui/themes/props';
+import { useStoreContext } from '../utils/GlobalState';
+import { idbPromise } from '../utils/helpers';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { ADD_TO_CART } from '../utils/actions';
 
 const Outfits = ({ outfitData, setOutfitState }) => {
 
@@ -10,6 +14,14 @@ const Outfits = ({ outfitData, setOutfitState }) => {
     const [deleteShoes] = useMutation(DELETE_SHOES);
     const [deleteAccessory] = useMutation(DELETE_ACCESSORIES);
     const [deleteOutfit] = useMutation(DELETE_OUTFIT);
+    const [state, dispatch] = useStoreContext();
+
+    // const handleAddToCart = (item) => {
+    //     // Dispatch an action to add the product to the cart
+    //     console.log(item);
+    //     dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
+    //     idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
+    // };
 
     const handleDeleteTop = async (outfit) => {
         try {
@@ -104,7 +116,8 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button>
+                                        <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -148,7 +161,8 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                <Button>
+                                        <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -192,7 +206,8 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                <Button>
+                                        <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -236,7 +251,8 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                <Button>
+                                        <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -280,7 +296,8 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                <Button>
+                                        <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -324,7 +341,8 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                <Button>
+                                        <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
