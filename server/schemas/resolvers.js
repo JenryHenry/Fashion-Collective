@@ -57,6 +57,10 @@ const resolvers = {
       const products = await Product.find({ title: { '$regex': title, $options: 'i' } }).populate('category');
       return products;
     },
+    getFeatured: async () => {
+      const featuredProducts = await Product.find({ featured: 'true' }).populate('category');
+      return featuredProducts;
+    },
     getTypeProducts: async (parent, { _id }, context) => {
       const categoryProducts = await Product.find({ category: _id }).populate('category');
       return categoryProducts;

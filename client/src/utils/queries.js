@@ -60,11 +60,30 @@ export const GET_PRODUCTS = gql`
     }
     count
     description
+    featured
     image
     price
     title
   }
  }
+`;
+
+export const GET_FEATURED = gql`
+query getFeatured {
+  getFeatured {
+    _id
+    category {
+      _id
+      name
+    }
+    count
+    description
+    featured
+    image
+    price
+    title
+  }
+}
 `;
 
 export const GET_TYPE_PRODUCTS = gql`
@@ -78,6 +97,7 @@ export const GET_TYPE_PRODUCTS = gql`
     count
     image
     description
+    featured
     price
     title
   }

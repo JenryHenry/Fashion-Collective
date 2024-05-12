@@ -5,7 +5,7 @@ import { idbPromise } from '../utils/helpers';
 
 import Auth from '../utils/auth';
 
-import { Button, Flex } from '@radix-ui/themes';
+import { Button, Flex, Link } from '@radix-ui/themes';
 import * as Toast from '@radix-ui/react-toast';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -37,10 +37,8 @@ const ProductOptions = ({ product }) => {
     };
 
     // handleAddToOutfit method
-    const handleAddToOutfit = (event) => {
+    const handleAddToOutfit = (item) => {
         return console.log('add to outfit button clicked!');
-        dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
-        idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
     };
 
     // pickSuccessWord function
@@ -78,7 +76,7 @@ const ProductOptions = ({ product }) => {
                         type='button' 
                         aria-label='Add Item to an Outfit' 
                         name='addToOutfit'
-                        onClick={handleAddToOutfit}
+                        onClick={() => handleAddToOutfit(product)}
                     >
                     <AddOutlinedIcon /> Add to Outfit
                     </Button>
@@ -105,7 +103,12 @@ const ProductOptions = ({ product }) => {
                 <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
                     <Flex direction='column'>
                     <Toast.Title className='ToastTitle'>{pickSuccessWord()}</Toast.Title>
-                    <Toast.Description>Added {product.title} to cart.</Toast.Description>
+                    <Toast.Description>
+                        <Flex direction='column'>
+                        Added {product.title} to cart.
+                        <Link href='/cart' weight='medium'>Go to Cart</Link>
+                        </Flex>
+                    </Toast.Description>
                     </Flex>
                 </Toast.Root>
                 </>

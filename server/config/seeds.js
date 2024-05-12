@@ -42,6 +42,7 @@ db.once('open', async () => {
             category: categories[0]._id,
             count: 32,
             description: `Women's fashion jean dress. (Image by mrsiraphol on Freepik)`,
+            featured: true,
             image: 'freepik-jean-dress.jpg',
             price: 22.99,
             title: 'Jean Dress'
@@ -67,6 +68,7 @@ db.once('open', async () => {
             count: 45,
             description: `Women's pink pants.`,
             image: 'womens-pink-pants.jpg',
+            featured: true,
             price: 19.99,
             title: 'Pink Pants'
         },
@@ -107,6 +109,7 @@ db.once('open', async () => {
             count: 39,
             description: `Modern black bucket hat. (Photo by Vecteezy.com)`,
             image: 'vecteezy-bucket-hat.jpg',
+            featured: true,
             price: 19.99,
             title: 'Black Bucket Hat'
         },
@@ -131,6 +134,7 @@ db.once('open', async () => {
             count: 49,
             description: `Men's blue straight jeans. (Photo by Vecteezy.com)`,
             image: 'vecteezy-blue-jeans.jpg',
+            featured: true,
             price: 24.99,
             title: 'Blue Jeans'
         },
@@ -146,6 +150,7 @@ db.once('open', async () => {
             category: categories[7]._id,
             count: 22,
             description: `Men's athletic shoes. (Photo by Vecteezy.com)`,
+            featured: true,
             image: 'vecteezy-athletic-shoes.jpg',
             price: 35.99,
             title: 'Athletic Shoes'
