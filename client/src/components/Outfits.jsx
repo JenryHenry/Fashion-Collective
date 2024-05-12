@@ -1,8 +1,9 @@
 import { Box, Grid, Button, Card, Text, HoverCard, Popover, DataList } from '@radix-ui/themes';
 import { useMutation } from '@apollo/client';
 import { DELETE_TOP, DELETE_BOTTOM, DELETE_SHOES, DELETE_ACCESSORIES, DELETE_OUTFIT } from '../utils/mutations';
+import { kbdPropDefs } from '@radix-ui/themes/props';
 
-const Outfits = ({ outfitData }) => {
+const Outfits = ({ outfitData, setOutfitState }) => {
 
     const [deleteTop] = useMutation(DELETE_TOP);
     const [deleteBottom] = useMutation(DELETE_BOTTOM);
@@ -12,45 +13,50 @@ const Outfits = ({ outfitData }) => {
 
     const handleDeleteTop = async (outfit) => {
         try {
-            await deleteTop({
+            const newData = await deleteTop({
                 variables: {outfitName: outfit.outfitName, top: outfit.top._id}
             });
+            setOutfitState(newData.data.deleteTop);
         } catch (err) {
             console.log(err)
         }
     };
     const handleDeleteBottom = async (outfit) => {
         try {
-            await deleteBottom({
+            const newData = await deleteBottom({
                 variables: {outfitName: outfit.outfitName, bottom: outfit.bottom._id}
             });
+            setOutfitState(newData.data.deleteBottom);
         } catch (err) {
             console.log(err)
         }
     };
     const handleDeleteShoes = async (outfit) => {
         try {
-            await deleteShoes({
+            const newData = await deleteShoes({
                 variables: {outfitName: outfit.outfitName, shoes: outfit.shoes._id}
             });
+            setOutfitState(newData.data.deleteShoes);
         } catch (err) {
             console.log(err)
         }
     };
     const handleDeleteAccessory = async (outfit) => {
         try {
-            await deleteAccessory({
+            const newData = await deleteAccessory({
                 variables: {outfitName: outfit.outfitName, accessories: outfit.accessory._id}
             });
+            setOutfitState(newData.data.deleteAccessory);
         } catch (err) {
             console.log(err)
         }
     };
     const handleDeleteOutfit = async (outfit) => {
         try {
-            await deleteOutfit({
+            const newData = await deleteOutfit({
                 variables: {outfitName: outfit.outfitName}
-            })
+            });
+            setOutfitState(newData.data.deleteOutfit);
         } catch (err) {
             console.log(err)
         }
@@ -58,7 +64,7 @@ const Outfits = ({ outfitData }) => {
 
     return (
         <>
-        {outfitData.outfits.map((outfit) => (
+        {outfitData.map((outfit) => (
                 <Box key={outfit._id}>
                     <Card variant='surface' size='4'>
                     <Text align='center' as='h1' weight='bold'>{outfit.outfitName[0].toUpperCase() + outfit.outfitName.slice(1)}</Text>

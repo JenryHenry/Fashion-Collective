@@ -70,16 +70,16 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addOutfit(outfitName: String!): User
-    deleteOutfit(outfitName: String!): User
-    addBottom(outfitName: String!, bottom: ID!): Outfit
-    deleteBottom(outfitName: String!, bottom: ID!): Outfit
-    addTop(outfitName: String!, top: ID!): Outfit
-    deleteTop(outfitName: String!, top: ID!): Outfit
-    addShoes(outfitName: String!, shoes: ID!): Outfit
-    deleteShoes(outfitName: String!, shoes: ID!): Outfit
-    addAccessories(outfitName: String!, accessories: ID!): Outfit
-    deleteAccessories(outfitName: String!, accessories: ID!): Outfit
+    addOutfit(outfitName: String!): [Outfit]
+    deleteOutfit(outfitName: String!): [Outfit]
+    addBottom(outfitName: String!, bottom: ID!): [Outfit]
+    deleteBottom(outfitName: String!, bottom: ID!): [Outfit]
+    addTop(outfitName: String!, top: ID!): [Outfit]
+    deleteTop(outfitName: String!, top: ID!): [Outfit]
+    addShoes(outfitName: String!, shoes: ID!): [Outfit]
+    deleteShoes(outfitName: String!, shoes: ID!): [Outfit]
+    addAccessories(outfitName: String!, accessories: ID!): [Outfit]
+    deleteAccessories(outfitName: String!, accessories: ID!): [Outfit]
   }
 `;
 
