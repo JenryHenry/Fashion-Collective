@@ -104,7 +104,6 @@ function ImageSearch() {
         <>
             <Form.Root onSubmit={handleSearch}>
                 <Form.Field>
-                    <Container width="35vw">
                         <Card>
                             <div {...getRootProps()}>
                                 <input {...getInputProps()}  />
@@ -136,7 +135,6 @@ function ImageSearch() {
                                 </Button>
                             </Box>
                         </Card>
-                    </Container>
                 </Form.Field>
             </Form.Root>
             <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
