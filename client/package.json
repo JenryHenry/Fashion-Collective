@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-multi-carousel": "^2.8.5",
     "react-router-dom": "^6.11.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "react-dropzone": "14.2.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

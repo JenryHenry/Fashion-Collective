@@ -241,6 +241,24 @@ db.once('open', async () => {
         bottom: products[5]._id,
         shoes: products[7]._id,
       },
+      {
+        outfitName: 'summer',
+        top: products[4]._id,
+        bottom: products[5]._id,
+        shoes: products[7]._id,
+      },
+      {
+        outfitName: 'winter',
+        top: products[1]._id,
+        bottom: products[5]._id,
+        shoes: products[8]._id,
+      },
+      {
+        outfitName: 'spring',
+        top: products[4]._id,
+        bottom: products[5]._id,
+        shoes: products[7]._id,
+      },
     ],
   });
 

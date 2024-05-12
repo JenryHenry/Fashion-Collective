@@ -25,21 +25,39 @@ export const GET_USER = gql`
 `;
 
 export const GET_OUTFITS = gql`
-query getOutfits($username: String!) {
-  outfits(username: $username) {
-    _id
+ query outfits {
+  outfits {
     outfitName
-    accessories {
+    top {
       _id
+      count
+      description
+      image
+      price
+      title
     }
     bottom {
       _id
+      count
+      description
+      image
+      price
+      title
     }
     shoes {
       _id
+      count
+      description
+      image
+      price
+      title
     }
-    top {
-      _id
+    accessories {
+      count
+      description
+      image
+      price
+      title
     }
   }
 }
@@ -50,10 +68,34 @@ export const GET_SINGLE_OUTFIT = gql`
   outfit(outfitName: $outfitName) {
     _id
     outfitName
-    top
-    bottom
-    shoes
-    accessories
+    top {
+      count
+      description
+      image
+      price
+      title
+    }
+    bottom {
+      count
+      description
+      image
+      price
+      title
+    }
+    shoes {
+      count
+      description
+      image
+      price
+      title
+    }
+    accessories {
+      count
+      description
+      image
+      price
+      title
+    }
   }
  }
 `;
@@ -110,7 +152,7 @@ export const GET_TYPE_PRODUCTS = gql`
     title
   }
  }
-`
+`;
 
 
 export const QUERY_CHECKOUT = gql`
