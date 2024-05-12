@@ -5,6 +5,8 @@ import { GET_PRODUCTS } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 
+import ImageSearch from './ImageSearch';
+
 import { Button, Container, Heading, TextField } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -60,7 +62,7 @@ const SearchBar = () => {
     return(
         <Container pb='8' width='90vw'>
             <Heading as='h2' align='center' style={{ paddingBottom: 'var(--space-5)' }}>Search for Clothing</Heading>
-            <Form.Root onSubmit={handleSubmit}>
+            <Form.Root onSubmit={handleSubmit} style={{ paddingBottom: 'var(--space-2)' }}>
                 <Form.Field>
                     <TextField.Root
                     type='search'
@@ -90,6 +92,7 @@ const SearchBar = () => {
                     </TextField.Root>
                 </Form.Field>
             </Form.Root>
+            <ImageSearch />
         </Container>
     );
 };

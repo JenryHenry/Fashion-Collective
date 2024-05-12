@@ -64,6 +64,7 @@ const typeDefs = `
     categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
     getProducts(title: String!): [Product]
+    getAllProducts: [Product]
     getTypeProducts(_id: ID!): [Product]
   }
 
