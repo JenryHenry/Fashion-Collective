@@ -11,7 +11,8 @@ const FeaturedItemsCarousel = () => {
   const { loading, data } = useQuery(GET_FEATURED, { staleTime: 3600000 });
 
   // handleClick method
-  // will save the featured item title when user clicks on its button
+  // will save the featured item title when user clicks
+  // on its button, then redirects to the search page
   const handleClick = (title) => {
     try {
       sessionStorage.setItem('featuredItem', title);

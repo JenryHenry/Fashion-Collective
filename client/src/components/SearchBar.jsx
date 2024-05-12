@@ -19,7 +19,7 @@ const SearchBar = () => {
     // this will hold any changes to the search input before the form is submmited
     // it's inital state will be an empty string or the featured item from session storage
     // helps prevent excessive dispatches and rerendering
-    const [input, setInput] = useState('' || featuredItem);
+    const [input, setInput] = useState(featuredItem || '');
 
     // useEffect hook
     // if there is a featured item, this will automatically click
