@@ -18,6 +18,7 @@ const typeDefs = `
     category: Category
     count: Int
     description: String
+    featured: Boolean
     image: String
     price: Float
     title: String
@@ -64,6 +65,7 @@ const typeDefs = `
     categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
     getProducts(title: String!): [Product]
+    getFeatured: [Product]
     getAllProducts: [Product]
     getTypeProducts(_id: ID!): [Product]
   }

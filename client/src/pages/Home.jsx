@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Container, Heading } from '@radix-ui/themes';
-import Carousel from '../components/Carousel';
+import FeaturedItemsCarousel from '../components/FeaturedItemsCarousel';
 
 import logo from '/logo.png';
 
@@ -22,8 +22,8 @@ const Home = () => {
       </Container>
       {/* Carousel to show featured clothing items */}
       <Container>
-        <Heading as='h2' align='center'>Featured Items:</Heading>
-        <Carousel />
+        <Heading as='h2' align='center' style={{ paddingBottom: 'var(--space-3)'}}>Featured Items:</Heading>
+        <FeaturedItemsCarousel />
       </Container>
     </>
   );

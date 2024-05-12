@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
 import { GET_PRODUCTS } from '../utils/queries';
@@ -14,14 +14,31 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 const SearchBar = () => {
     const [state, dispatch] = useStoreContext();
 
+    // get the featured item the user clicked on from the homepage
+    const featuredItem = sessionStorage.getItem('featuredItem');
+
     // useState hook
     // this will hold any changes to the search input before the form is submmited
+    // it's inital state will be an empty string or the featured item from session storage
     // helps prevent excessive dispatches and rerendering
-    const [input, setInput] = useState('');
+    const [input, setInput] = useState(featuredItem || '');
+
+    // useEffect hook
+    // if there is a featured item, this will automatically click
+    // the search button and remove the item from session storage
+    useEffect(() => {
+        clickSearchButton();
+        sessionStorage.removeItem('featuredItem');
+    }, [featuredItem]);
 
     // useLazyQuery hook
     // getProducts must be called to get all products from database
     const [getProducts, { loading, data }] = useLazyQuery(GET_PRODUCTS);
+
+    // clickSearchButton function
+    const clickSearchButton = () => {
+        document.getElementById('searchButton').click();
+    }
 
     // handleChange method
     // update search input state
@@ -72,11 +89,13 @@ const SearchBar = () => {
                     name='product'
                     value={input}
                     onChange={handleChange}
+                    required
                     >
                     <TextField.Slot aria-label='Search Icon'>
                         <SearchOutlinedIcon />
                     </TextField.Slot>
                     <Button
+                    id='searchButton'
                     aria-label='Search for Clothes'
                     name='search' 
                     type='submit' 

@@ -67,13 +67,17 @@ const resolvers = {
       }
     },
     getSingleOutfit: async (parent, args, context) => {
-      const user =await User.findOne({ _id: context.user._id});
+      const user = await User.findOne({ _id: context.user._id});
       return user.outfits.find((outfit) => {return outfit.outfitName === args.outfitName})      
     },
     getProducts: async (parent, { title }, context) => {
       // The getProducts query is case insensitive
       const products = await Product.find({ title: { '$regex': title, $options: 'i' } }).populate('category');
       return products;
+    },
+    getFeatured: async () => {
+      const featuredProducts = await Product.find({ featured: 'true' }).populate('category');
+      return featuredProducts;
     },
     getTypeProducts: async (parent, { _id }, context) => {
       const categoryProducts = await Product.find({ category: _id }).populate('category');

@@ -1,10 +1,12 @@
 const db = require('./connection');
-const { User, Product, Category } = require('../models');
+const { User, Product, Category, Order, Outfit } = require('../models');
 const cleanDB = require('./cleanDB');
 
 db.once('open', async () => {
   await cleanDB('Category', 'categories');
   await cleanDB('Product', 'products');
+  await cleanDB('Outfit', 'outfits');
+  await cleanDB('Order', 'orders');
   await cleanDB('User', 'users');
 
   const categories = await Category.insertMany([
@@ -42,6 +44,7 @@ db.once('open', async () => {
             category: categories[0]._id,
             count: 32,
             description: `Women's fashion jean dress. (Image by mrsiraphol on Freepik)`,
+            featured: true,
             image: 'freepik-jean-dress.jpg',
             price: 22.99,
             title: 'Jean Dress'
@@ -57,7 +60,7 @@ db.once('open', async () => {
         {
             category: categories[1]._id,
             count: 74,
-            description: `Women's black and white stripped top. (Photo by Vecteezy.com)`,
+            description: `Women's black and white striped top. (Photo by Vecteezy.com)`,
             image: `vecteezy_striped-top.jpg`,
             price: 15.99,
             title: 'Striped Top'
@@ -67,6 +70,7 @@ db.once('open', async () => {
             count: 45,
             description: `Women's pink pants.`,
             image: 'womens-pink-pants.jpg',
+            featured: true,
             price: 19.99,
             title: 'Pink Pants'
         },
@@ -107,6 +111,7 @@ db.once('open', async () => {
             count: 39,
             description: `Modern black bucket hat. (Photo by Vecteezy.com)`,
             image: 'vecteezy-bucket-hat.jpg',
+            featured: true,
             price: 19.99,
             title: 'Black Bucket Hat'
         },
@@ -131,21 +136,23 @@ db.once('open', async () => {
             count: 49,
             description: `Men's blue straight jeans. (Photo by Vecteezy.com)`,
             image: 'vecteezy-blue-jeans.jpg',
+            featured: true,
             price: 24.99,
             title: 'Blue Jeans'
         },
         {
             category: categories[6]._id,
             count: 82,
-            description: `Men's red and white stripped shorts. (Photo by Vecteezy.com)`,
+            description: `Men's red and white striped shorts. (Photo by Vecteezy.com)`,
             image: 'vecteezy-striped-shorts.jpg',
             price: 21.99,
-            title: 'Stripped Shorts'
+            title: 'Striped Shorts'
         },
         {
             category: categories[7]._id,
             count: 22,
             description: `Men's athletic shoes. (Photo by Vecteezy.com)`,
+            featured: true,
             image: 'vecteezy-athletic-shoes.jpg',
             price: 35.99,
             title: 'Athletic Shoes'
@@ -178,40 +185,96 @@ db.once('open', async () => {
 
   console.log('Products Seeded!');
 
-  await User.create({
+  const outfits = await Outfit.insertMany([
+    {
+      outfitName: 'outfit1',
+      top: products[1]._id,
+      shoes: products[8]._id,
+    },
+    {
+      outfitName: 'outfit2',
+      top: products[4]._id,
+      bottom: products[5]._id,
+      shoes: products[7]._id,
+    },
+    {
+      outfitName: 'summer',
+      top: products[4]._id,
+      bottom: products[5]._id,
+      shoes: products[7]._id,
+    },
+    {
+      outfitName: 'winter',
+      top: products[1]._id,
+      bottom: products[5]._id,
+      shoes: products[8]._id,
+    },
+    {
+      outfitName: 'spring',
+      top: products[4]._id,
+      bottom: products[5]._id,
+      shoes: products[7]._id,
+    },
+    {
+      outfitName: 'outfit3',
+      top: products[12]._id,
+      shoes: products[16]._id,
+    },
+  ]);
+
+  console.log('Outfits Seeded!');
+
+  const orders = await Order.insertMany([
+    {
+      products: [products[1]._id, products[8]._id],
+    },
+    {
+      products: [products[12]._id, products[16]._id],
+    },
+  ]);
+
+  console.log('Orders Seeded!');
+
+  const userOne = await User.create({
     username: 'jackieA',
     email: 'jackieA@email.com',
     password: 'password12345',
     orders: [
       {
+        _id: orders[0]._id,
         products: [products[1]._id, products[8]._id],
       },
     ],
     outfits: [
       {
+        _id: outfits[0]._id,
         outfitName: 'outfit1',
         top: products[1]._id,
         shoes: products[8]._id,
       },
       {
+        _id: outfits[1]._id,
         outfitName: 'outfit2',
         top: products[4]._id,
         bottom: products[5]._id,
         shoes: products[7]._id,
       },
       {
+        _id: outfits[2]._id,
         outfitName: 'summer',
         top: products[4]._id,
         bottom: products[5]._id,
         shoes: products[7]._id,
       },
       {
+        _id: outfits[3]._id,
         outfitName: 'winter',
         top: products[1]._id,
         bottom: products[5]._id,
         shoes: products[8]._id,
       },
       {
+        _id: outfits[4]._id,
         outfitName: 'spring',
         top: products[4]._id,
         bottom: products[5]._id,
@@ -220,17 +283,19 @@ db.once('open', async () => {
     ],
   });
 
-  await User.create({
+  const userTwo = await User.create({
     username: 'AdamT',
     email: 'AdamT@email.com',
     password: 'onetwothree123',
     orders: [
-      {
+      { 
+        _id: orders[1]._id,
         products: [products[12]._id, products[16]._id],
       },
     ],
     outfits: [
       {
+        _id: outfits[5]._id,
         outfitName: 'outfit3',
         top: products[12]._id,
         shoes: products[16]._id,
