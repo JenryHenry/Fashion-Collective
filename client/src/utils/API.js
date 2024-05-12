@@ -1,8 +1,8 @@
 export const imageData = async (imageUrl) => {
     
-    const PAT = '9fad706f71fb4812bb328652e79abe86';
-    const USER_ID = 'itzelhdz208';       
-    const APP_ID = 'fashioncollective';
+    const PAT = process.env.API_KEY;
+    const USER_ID = process.env.USER_ID;       
+    const APP_ID = process.env.APP_ID;
 
     const MODEL_ID = 'apparel-classification-v2';
     const MODEL_VERSION_ID = '651c5412d53c408fa3b4fe3dcc060be7';    
