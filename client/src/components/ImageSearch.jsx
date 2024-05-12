@@ -3,7 +3,7 @@ import {useDropzone} from 'react-dropzone';
 import { useLazyQuery } from '@apollo/client';
 import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
 import { GET_PRODUCTS } from '../utils/queries';
-import { colorSearch, tagSearch } from '../utils/API';
+import { imageData } from '../utils/API';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 
@@ -48,9 +48,12 @@ function ImageSearch() {
         reader.onabort = () => console.log('file reading was aborted');
         reader.onerror = () => console.log('file reading has failed');
         reader.onload = () => {
-            setImageUrl(reader.result);
+            const buffer = reader.result; // Use reader.result directly
+            const blob = new Blob([buffer]); // Create a Blob from the buffer
+            const url = URL.createObjectURL(blob); // Create a URL from the Blob
+            setImageUrl(url);
         }
-        reader.readAsDataURL(file);
+        reader.readAsArrayBuffer(file);
         });
         
     }, []);
@@ -66,10 +69,11 @@ function ImageSearch() {
 
         try{
 
-            const color = await colorSearch(imageUrl);
-            const tag = await tagSearch(imageUrl);
+            const input = await imageData(imageUrl);
 
-            const input = `${color} ${tag}`;
+            if (!input){
+                return;
+            }
 
             // only products that match search query will be returned
             const response = await getProducts({ variables: { title: input } });
@@ -94,7 +98,7 @@ function ImageSearch() {
         catch(err){
             console.error(err);
         }
-    }
+    };
 
     return(
         <>
@@ -106,12 +110,19 @@ function ImageSearch() {
                                 <input {...getInputProps()}  />
                                 <Text as="p" size="3" align="center"><Strong>Search by Image</Strong></Text>
                                 <Text as="p" size="3" align="center">Drag and Drop or Click to Upload an Image</Text>
-                                <Box align="center">
-                                    <AddAPhotoOutlinedIcon />
-                                </Box>
                             </div>
                             <Box align="center">
-                                { imageUrl ? console.log('Image Uplaoded!') : console.log('No Image!')}
+                                { imageUrl ? 
+                                    (<img
+                                        src={imageUrl}
+                                        alt="uploaded image"
+                                        style={{
+                                            height: '10vh',
+                                            width: 'auto'
+                                        }}
+                                    />) 
+                                    : (<AddAPhotoOutlinedIcon />)}
+                                <br/>
                                 <Button
                                     aria-label='Search by Image'
                                     name='search-image' 

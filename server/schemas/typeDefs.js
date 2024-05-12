@@ -48,6 +48,15 @@ const typeDefs = `
     user: User
   }
 
+  input ProductInput {
+    _id: ID
+    purchaseQty: Int
+    title: String
+    image: String
+    price: Float
+    count: Int
+  }
+
   type Query {
     user(username: String!): User
     checkout(products: [ProductInput]): Checkout
@@ -55,6 +64,7 @@ const typeDefs = `
     categories: [Category]
     getSingleOutfit(outfitName: String!): Outfit
     getProducts(title: String!): [Product]
+    getAllProducts: [Product]
     getTypeProducts(_id: ID!): [Product]
   }
 
