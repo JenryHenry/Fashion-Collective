@@ -82,7 +82,7 @@ export const GET_TYPE_PRODUCTS = gql`
     title
   }
  }
-`
+`;
 
 
 export const QUERY_CHECKOUT = gql`

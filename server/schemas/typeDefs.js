@@ -48,15 +48,6 @@ const typeDefs = `
     user: User
   }
 
-  input ProductInput {
-    _id: ID
-    purchaseQty: Int
-    title: String
-    image: String
-    price: Float
-    count: Int
-  }
-
   type Query {
     user(username: String!): User
     checkout(products: [ProductInput]): Checkout

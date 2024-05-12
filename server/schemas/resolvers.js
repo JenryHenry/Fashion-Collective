@@ -60,6 +60,10 @@ const resolvers = {
     getTypeProducts: async (parent, { _id }, context) => {
       const categoryProducts = await Product.find({ category: _id }).populate('category');
       return categoryProducts;
+    },
+    getAllProducts: async () => {
+      const products = await Product.find();
+      return products;
     }
   },
 

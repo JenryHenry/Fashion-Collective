@@ -1,9 +1,9 @@
-// import { tags, colors } from '../utils/API';
 import React, {useCallback, useState, useEffect, useRef } from 'react';
 import {useDropzone} from 'react-dropzone';
 import { useLazyQuery } from '@apollo/client';
-import { SET_QUERY, UPDATE_PRODUCTS, SET_AI_QUERY } from '../utils/actions';
+import { SET_QUERY, UPDATE_PRODUCTS } from '../utils/actions';
 import { GET_PRODUCTS } from '../utils/queries';
+import { colorSearch, tagSearch } from '../utils/API';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 
@@ -13,6 +13,7 @@ import * as Toast from '@radix-ui/react-toast';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 function ImageSearch() {
+
     const [state, dispatch] = useStoreContext();
 
     const [imageUrl, setImageUrl] = useState(null);
@@ -27,13 +28,10 @@ function ImageSearch() {
     // getProducts must be called to get all products from database
     const [getProducts, { loading, data }] = useLazyQuery(GET_PRODUCTS);
 
+
     useEffect( () => {
         if (imageUrl){
-            dispatch({
-                type: SET_AI_QUERY,
-                queryAI: 'blue'
-            });
-
+            
             setOpen(false);
             window.clearTimeout(timerRef.current);
             timerRef.current = window.setTimeout(() => {
@@ -63,15 +61,16 @@ function ImageSearch() {
 
         event.preventDefault();
 
-        dispatch({
-            type: SET_AI_QUERY,
-            queryAI: ''
-        });
-
         setImageUrl('');
 
 
         try{
+
+            const color = await colorSearch(imageUrl);
+            const tag = await tagSearch(imageUrl);
+
+            const input = `${color} ${tag}`;
+
             // only products that match search query will be returned
             const response = await getProducts({ variables: { title: input } });
 
@@ -112,7 +111,7 @@ function ImageSearch() {
                                 </Box>
                             </div>
                             <Box align="center">
-                                { state.queryAI ? console.log(state.queryAI) : console.log('hi!')}
+                                { imageUrl ? console.log('Image Uplaoded!') : console.log('No Image!')}
                                 <Button
                                     aria-label='Search by Image'
                                     name='search-image' 

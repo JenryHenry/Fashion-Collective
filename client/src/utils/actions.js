@@ -11,5 +11,3 @@ export const UPDATE_CURRENT_CATEGORY = "UPDATE_CURRENT_CATEGORY";
 
 export const CLEAR_QUERY = "CLEAR_QUERY";
 export const SET_QUERY = "SET_QUERY";
-
-export const SET_AI_QUERY = "SET_AI_QUERY";
