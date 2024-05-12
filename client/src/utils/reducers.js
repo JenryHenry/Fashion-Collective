@@ -8,7 +8,8 @@ import {
     UPDATE_CURRENT_CATEGORY,
     CLEAR_CART,
     CLEAR_QUERY,
-    SET_QUERY
+    SET_QUERY,
+    SET_AI_QUERY
   } from "./actions";
   
   export const reducer = (state, action) => {
@@ -81,6 +82,12 @@ import {
         return {
           ...state,
           searchQuery: action.searchQuery
+        };
+
+      case SET_AI_QUERY:
+        return {
+          ...state,
+          queryAI: action.queryAI
         };
   
       default:
