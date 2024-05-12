@@ -5,7 +5,7 @@ import { idbPromise, pickSuccessWord } from '../utils/helpers';
 
 import Auth from '../utils/auth';
 
-import { AlertDialog, Button, Flex, Text } from '@radix-ui/themes';
+import { AlertDialog, Button, Flex } from '@radix-ui/themes';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const AddToOutfit = ({ product }) => {
@@ -15,6 +15,12 @@ const AddToOutfit = ({ product }) => {
     // useLazyQuery hook
     // getOutfits must be called to get all users outfits from database
     const [getOutfits, { loading, data }] = useLazyQuery(GET_OUTFITS);
+
+    const checkOutfits = async () => {
+        const { data } = await Auth.getProfile();
+        const response = await getOutfits({ variables: { username: data.username } });
+        console.log(response.data.outfits);
+    };
 
     // handleAddToOutfit method
     const handleAddToOutfit = async (item) => {
@@ -33,6 +39,7 @@ const AddToOutfit = ({ product }) => {
                         type='button' 
                         aria-label='Add Item to an Outfit' 
                         name='addToOutfit'
+                        onClick={checkOutfits}
                     >
                     <AddOutlinedIcon /> Add to Outfit
                     </Button>
@@ -41,23 +48,37 @@ const AddToOutfit = ({ product }) => {
                     <AlertDialog.Title>{pickSuccessWord()}</AlertDialog.Title>
                     <AlertDialog.Description size='2'>
                         <Flex direction='column'>
-                        <Text>Adding {product.title} to your outfit...</Text>
-                        <Text>Please click one of the options below.</Text>
+                        Adding {product.title} to your outfit... <br/>
+                        Please click one of the options below.
                         </Flex>
                     </AlertDialog.Description>
                     <Flex gap='3' mt='4' justify='center' wrap='wrap'>
                     <AlertDialog.Action>
-                        <Button variant='soft'>
+                        <Button 
+                            variant='soft'
+                            type='button' 
+                            aria-label='Add Item to New Outfit' 
+                            name='addToNewOutfit'
+                        >
                         Add to New Outfit
                         </Button>
                     </AlertDialog.Action>
                     <AlertDialog.Action>
-                        <Button variant='soft'>
+                        <Button 
+                            variant='soft'
+                            type='button' 
+                            aria-label='Add Item to Existing Outfit' 
+                            name='addToExistingOutfit'
+                        >
                         Add to Existing Outfit
                         </Button>
                     </AlertDialog.Action>
                     <AlertDialog.Cancel>
-                        <Button variant='soft' color='red'>
+                        <Button 
+                            type='button'
+                            variant='soft' 
+                            color='red'
+                        >
                         Cancel
                         </Button>
                     </AlertDialog.Cancel>

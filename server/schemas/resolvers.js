@@ -44,12 +44,12 @@ const resolvers = {
 
       return { session: session.id };
     },
-    outfits: async (parent, args, context) => {
-      const user = User.findById(context.user._id);
-      return user.outfits;
+    outfits: async (parent, { username }, context) => {
+      const user = await User.find({ username: username }).select('outfits');
+      return user[0].outfits;
     },
     getSingleOutfit: async (parent, args, context) => {
-      const user = User.findOne({ _id: context.user._id});
+      const user = await User.findOne({ _id: context.user._id});
       return user.outfits.find((outfit) => {return outfit.outfitName === args.outfitName})      
     },
     getProducts: async (parent, { title }, context) => {

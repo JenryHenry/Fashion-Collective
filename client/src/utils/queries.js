@@ -25,16 +25,24 @@ export const GET_USER = gql`
 `;
 
 export const GET_OUTFITS = gql`
- query getOutfits {
-  outfits {
+query getOutfits($username: String!) {
+  outfits(username: $username) {
     _id
     outfitName
-    top
-    bottom
-    shoes
-    accessories
+    accessories {
+      _id
+    }
+    bottom {
+      _id
+    }
+    shoes {
+      _id
+    }
+    top {
+      _id
+    }
   }
- }
+}
 `;
 
 export const GET_SINGLE_OUTFIT = gql`
