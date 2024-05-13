@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { GET_OUTFITS } from '../utils/queries';
 import { ADD_TOP, ADD_BOTTOM, ADD_SHOES, ADD_ACCESSORIES, ADD_OUTFIT } from '../utils/mutations';
@@ -7,7 +7,8 @@ import { pickSuccessWord } from '../utils/helpers';
 
 import Auth from '../utils/auth';
 
-import { AlertDialog, Button, DropdownMenu, Flex, Text, TextField, Popover } from '@radix-ui/themes';
+import { AlertDialog, Button, DropdownMenu, Flex, Link, Text, TextField, Popover } from '@radix-ui/themes';
+import * as Toast from '@radix-ui/react-toast';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const AddToOutfit = ({ product }) => {
@@ -19,6 +20,21 @@ const AddToOutfit = ({ product }) => {
     const [outfits, setOutfits] = useState([]);
     // holds outfit name
     const [outfitName, setOutfitName] = useState('');
+    // holds the state of toast notification window for new outfits
+    const [openNew, setOpenNew] = useState(false);
+    // holds the state of toast notification window for existing outfits
+    const [openExisting, setOpenExisting] = useState(false);
+
+    // useRef hook
+    // references the toast notification timer
+    // timerRef does not trigger rerendering
+    const timerRef = useRef(0);
+
+    // useEffect hook
+    // reset clearTimeout method for toast notification
+    useEffect(() => {
+        return () => clearTimeout(timerRef.current);
+    }, []);
 
     // useLazyQuery hook
     // getOutfits must be called to get all users outfits from database
@@ -131,7 +147,7 @@ const AddToOutfit = ({ product }) => {
     {   
         Auth.loggedIn() ? 
             <>
-            <AlertDialog.Root>
+            <AlertDialog.Root id='dialog'>
             <AlertDialog.Trigger>
                 <Button 
                     type='button' 
@@ -181,7 +197,14 @@ const AddToOutfit = ({ product }) => {
                             type='button' 
                             aria-label='Create new outfit and add item to it' 
                             name='addToNewOutfit'
-                            onClick={() => addToNewOutfit(product)}
+                            onClick={() => { 
+                                addToNewOutfit(product);
+                                setOpenNew(false);
+                                window.clearTimeout(timerRef.current);
+                                timerRef.current = window.setTimeout(() => {
+                                    setOpenNew(true);
+                                }, 100);
+                            }}
                         >
                         Submit
                         </Button>
@@ -216,8 +239,16 @@ const AddToOutfit = ({ product }) => {
                             { outfits.map((outfit) => 
                             <DropdownMenu.Item 
                             key={outfit._id}
-                            onClick={(event) =>  addToExistingOutfit(outfit.outfitName, product)}
-                            >{outfit.outfitName}</DropdownMenu.Item>
+                            onClick={() => {
+                                addToExistingOutfit(outfit.outfitName, product);
+                                setOpenExisting(false);
+                                window.clearTimeout(timerRef.current);
+                                timerRef.current = window.setTimeout(() => {
+                                    setOpenExisting(true);
+                                }, 100);
+                            }}>
+                            {outfit.outfitName}
+                            </DropdownMenu.Item>
                             )}
                             </DropdownMenu.Content>
                         </DropdownMenu.Root>
@@ -237,10 +268,35 @@ const AddToOutfit = ({ product }) => {
                 </Flex>
             </AlertDialog.Content>
             </AlertDialog.Root>
+
+            <Toast.Root className='ToastRoot' open={openNew} onOpenChange={setOpenNew}>
+                <Flex direction='column'>
+                <Toast.Title className='ToastTitle'>Success!</Toast.Title>
+                <Toast.Description>
+                    <Flex direction='column'>
+                    Your new outfit has been created.
+                    <Link href='/my-outfits' weight='medium'>Go to My Outfits</Link>
+                    </Flex>
+                </Toast.Description>
+                </Flex>
+            </Toast.Root>
+
+            <Toast.Root className='ToastRoot' open={openExisting} onOpenChange={setOpenExisting}>
+                <Flex direction='column'>
+                <Toast.Title className='ToastTitle'>Success!</Toast.Title>
+                <Toast.Description>
+                    <Flex direction='column'>
+                    Your outfit has been updated.
+                    <Link href='/my-outfits' weight='medium'>Go to My Outfits</Link>
+                    </Flex>
+                </Toast.Description>
+                </Flex>
+            </Toast.Root>
             </>
             :
             null 
     }
+    
     </>
     );
 }
