@@ -39,7 +39,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <StoreProvider>
-        <Theme radius='large'>
+        <Theme accentColor='bronze' radius='large'>
           <Box width='100vw'>
             <Toast.Provider swipeDirection='right'>
               <Navbar />

@@ -33,7 +33,7 @@ The app was built using the MERN stack with a [React](https://react.dev/) front 
 
 ### [Radix UI](https://www.radix-ui.com/)
 
-Open source UI component library and [custom color palette](https://www.radix-ui.com/colors) were used to design and style site. 
+The Radix open source UI component library and Radix Theme (pre-styled components) were used to design and style site. 
 
 ### [React Multi-Carousel](https://www.npmjs.com/package/react-multi-carousel)
 

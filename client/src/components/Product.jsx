@@ -32,7 +32,7 @@ const Product = () => {
         <>
         {
             state.products.map((product) =>
-                <Box key={product._id} maxWidth='350px'>
+                <Box key={product._id} width='350px'>
                     <Card variant='surface' size='3'>
                         <Inset clip='border-box' side='top' pb='current'>
                         <img
