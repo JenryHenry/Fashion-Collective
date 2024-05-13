@@ -7,7 +7,7 @@ import { imageData } from '../utils/API';
 import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 
-import { Button, Container, Card, Text, Box, Strong, Flex } from '@radix-ui/themes';
+import { Button, Card, Text, Box, Strong, Flex } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
 import * as Toast from '@radix-ui/react-toast';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
@@ -104,39 +104,37 @@ function ImageSearch() {
         <>
             <Form.Root onSubmit={handleSearch}>
                 <Form.Field>
-                    <Container width="35vw">
-                        <Card>
-                            <div {...getRootProps()}>
-                                <input {...getInputProps()}  />
-                                <Text as="p" size="3" align="center"><Strong>Search by Image</Strong></Text>
-                                <Text as="p" size="3" align="center">Drag and Drop or Click to Upload an Image</Text>
-                            </div>
-                            <Box align="center">
-                                { imageUrl ? 
-                                    (<img
-                                        src={imageUrl}
-                                        alt="uploaded image"
-                                        style={{
-                                            height: '10vh',
-                                            width: 'auto'
-                                        }}
-                                    />) 
-                                    : (<AddAPhotoOutlinedIcon />)}
-                                <br/>
-                                <Button
-                                    aria-label='Search by Image'
-                                    name='search-image' 
-                                    type='submit' 
-                                    variant='solid'
-                                    style={{ 
-                                        height: 'auto', 
-                                        }}
-                                    >
-                                    Search
-                                </Button>
-                            </Box>
-                        </Card>
-                    </Container>
+                    <Card>
+                        <div {...getRootProps()}>
+                            <input {...getInputProps()}  />
+                            <Text as="p" size="3" align="center"><Strong>Search by Image</Strong></Text>
+                            <Text as="p" size="3" align="center">Drag and Drop or Click to Upload an Image</Text>
+                        </div>
+                        <Box align="center">
+                            { imageUrl ? 
+                                (<img
+                                    src={imageUrl}
+                                    alt="uploaded image"
+                                    style={{
+                                        height: '10vh',
+                                        width: 'auto'
+                                    }}
+                                />) 
+                                : (<AddAPhotoOutlinedIcon />)}
+                            <br/>
+                            <Button
+                                aria-label='Search by Image'
+                                name='search-image' 
+                                type='submit' 
+                                variant='solid'
+                                style={{ 
+                                    height: 'auto', 
+                                    }}
+                                >
+                                Search
+                            </Button>
+                        </Box>
+                    </Card>
                 </Form.Field>
             </Form.Root>
             <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
