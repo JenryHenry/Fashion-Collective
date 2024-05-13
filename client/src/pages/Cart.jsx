@@ -8,7 +8,7 @@ import { ADD_MULTIPLE_TO_CART } from '../utils/actions';
 import Auth from '../utils/auth';
 import CartItem from '../components/CartItem';
 
-import { Box, Container, Heading, Text, Strong, Button, Flex } from '@radix-ui/themes';
+import { Box, Container, Heading, Text, Strong, Button, Flex, Link } from '@radix-ui/themes';
 import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
@@ -107,9 +107,20 @@ const CartPage = () => {
         </>
       ) : (
         <Container pb='3' maxWidth='90%'>
-          <Heading as='h2' align='center'>Shopping Cart</Heading>
+          <Heading
+          as='h2'
+          align='center'
+          className='cursive' 
+          style=
+            {{ 
+                paddingBottom: 'var(--space-6)',
+                fontSize: '2.5rem'
+            }}
+          >
+          Shopping Cart
+          </Heading>
           <br/>
-          <Text as='p' size='5' align='center'>No items in cart!</Text>
+          <Text as='p' size='5' align='center'>No items in cart!< br/>Click <Link href='/search' weight='bold'>here</Link> to search for clothes.</Text>
         </Container>
       )} 
     </>

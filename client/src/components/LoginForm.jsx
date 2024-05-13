@@ -56,8 +56,25 @@ const LoginForm = () => {
 
   return (
     <Container maxWidth='500px'>     
-      <Heading size='7' mb='3' align='center'>Login</Heading>
-      <Card>
+      <Heading
+      mb='3'
+      align='center'
+      className='cursive' 
+      style=
+        {{ 
+            paddingBottom: 'var(--space-6)',
+            fontSize: '2.5rem'
+        }}
+      >
+      Login
+      </Heading>
+      <Card
+      style=
+        {{
+            background: 'rgb(247,247,247)',
+            background: 'radial-gradient(circle, rgba(247,247,247,1) 80%, rgba(149,116,104,1) 87%)',
+        }}
+      >
         <Form.Root onSubmit={handleFormSubmit}>
           <Form.Field name='email'>
               <Text as='div' size='5' mb='3' weight='bold'>
