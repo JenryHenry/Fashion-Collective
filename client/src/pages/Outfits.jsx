@@ -6,8 +6,9 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_OUTFIT } from '../utils/mutations';
 import Outfits from '../components/Outfits';
-import { Container, Grid, Heading, Flex, Box, Button, Dialog, Text, TextField } from '@radix-ui/themes';
 
+import { Container, Heading, Flex, Button, Dialog, Spinner, TextField } from '@radix-ui/themes';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 // use onBlur={(event) => {check if user already has an outfit with that name}}
 
 const OutfitsPage = ({ open, onClose, onSave }) => {
@@ -38,19 +39,35 @@ const OutfitsPage = ({ open, onClose, onSave }) => {
   return (
     <>
     <Container>
-    <Heading as='h2' align='center'>My Outfits</Heading>
-    <Grid columns={{ initial: '1', md: '3', lg:'4', xl:'5' }} gap='3' mb="2" width='auto'>
+    <Heading 
+    as='h2' 
+    align='center'
+    className='cursive' 
+    style=
+      {{ 
+        paddingBottom: 'var(--space-6)',
+        fontSize: '2.5rem'
+      }}
+    >
+    My Outfits
+    </Heading>
+    <Flex gap='3' justify='center' width='auto' direction='row' wrap='wrap'>
       <Outfits setOutfitState={setOutfitState} outfitData={outfitState}/>
-    </Grid>
+    </Flex>
     <Dialog.Root>
     <Dialog.Trigger>
-      <Button>Add Outfit</Button>
+      <Flex justify='center' pt='5'>
+        <Button>
+          <AddOutlinedIcon />
+          Add New Outfit
+        </Button>
+      </Flex>
     </Dialog.Trigger>
     <Dialog.Content maxWidth="450px"> 
-    <Dialog.Title>What do you want to call this outfit?</Dialog.Title>
+    <Dialog.Title>Please enter a name for your outfit:</Dialog.Title>
     <Flex direction="column" gap="3">
       <label>
-        <TextField.Root value={formState} onChange={(event)=>{setFormState(event.target.value)}} placeholder="Enter a name for your outfit"></TextField.Root>
+        <TextField.Root value={formState} onChange={(event)=>{setFormState(event.target.value)}} placeholder="ex. Street Style"></TextField.Root>
       </label>
     </Flex>
     <Flex gap="3" mt="4" justify="end">
@@ -60,7 +77,7 @@ const OutfitsPage = ({ open, onClose, onSave }) => {
         </Button>
       </Dialog.Close>
       <Dialog.Close>
-        <Button onClick={()=> handleAddOutfit(formState)}>Ok!</Button>
+        <Button onClick={()=> handleAddOutfit(formState)}>Add Outfit</Button>
       </Dialog.Close>
     </Flex>
     </Dialog.Content>
@@ -70,7 +87,23 @@ const OutfitsPage = ({ open, onClose, onSave }) => {
   );
 } else {
   return (
-    <h1>Loading...</h1>
+    <Container width='auto' align='center'>
+      <Flex direction='column' align='center'>
+        <Spinner size='3' />
+        <Heading
+        className='cursive'
+        align='center'
+        style=
+          {{ 
+            paddingTop: 'var(--space-6)',
+            fontSize: '2.81rem',
+            lineHeight: 1.5,
+          }}
+        >
+        Loading your outfits...
+        </Heading>
+      </Flex>
+    </Container>
   )
 }
 };

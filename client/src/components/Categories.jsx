@@ -38,6 +38,9 @@ const Categories = () => {
               <Tabs.Trigger
               key={category._id}
               value={category.name}
+              style={{
+                fontSize: 'var(--font-size-3)',
+              }}
               onClick=
                 { 
                   async(event) => {

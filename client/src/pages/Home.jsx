@@ -24,7 +24,7 @@ const Home = () => {
           className='hover-cursive' 
           align='center'
           style={{
-            fontSize: '2.18rem',
+            fontSize: '2rem',
             paddingBottom: 'var(--space-6)',
           }}
           >
@@ -38,10 +38,11 @@ const Home = () => {
         as='h2' 
         className='cursive' 
         align='center' 
-        style={{ 
+        style=
+        {{ 
           paddingBottom: 'var(--space-6)',
-          fontSize: '2.81rem'
-          }}
+          fontSize: '2.5rem'
+        }}
         >
         Featured Items:
         </Heading>

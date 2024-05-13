@@ -188,6 +188,7 @@ const AddToOutfit = ({ product }) => {
                     <Popover.Close>
                         <Button 
                             variant='soft'
+                            color='green'
                             type='button' 
                             aria-label='Create new outfit and add item to it' 
                             name='addToNewOutfit'

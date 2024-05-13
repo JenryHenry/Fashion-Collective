@@ -26,7 +26,7 @@ const Navbar = () => {
         <TabNav.Link asChild active={pathname === '/search'}>
           <Link to='/search' state='/search' weight='bold'>
             <SearchOutlinedIcon  />
-            <Text weight='bold'>Search for Clothes</Text>
+            <Text weight='bold'>Search</Text>
           </Link>
         </TabNav.Link>
         <TabNav.Link asChild active={pathname === '/cart'}>
@@ -42,7 +42,7 @@ const Navbar = () => {
           <TabNav.Link asChild active={pathname === '/my-outfits'}>
             <Link to='/my-outfits' state='/my-outfits' weight='bold'>
               <FavoriteBorderOutlinedIcon />
-              <Text weight='bold'></Text>My Outfits
+              <Text weight='bold'>My Outfits</Text>
             </Link>
           </TabNav.Link> 
           <TabNav.Link onClick={Auth.logout}>

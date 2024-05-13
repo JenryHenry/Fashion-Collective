@@ -41,7 +41,14 @@ const CartItem = ({ product }) => {
   return (
   <>
     <Box key={product._id} maxWidth='350px'>
-      <Card variant='surface' size='3'>
+      <Card 
+      variant='surface' 
+      size='3' 
+      style=
+        {{
+            background: 'rgb(247,247,247)',
+            background: 'radial-gradient(circle, rgba(247,247,247,1) 80%, rgba(149,116,104,1) 87%)',
+        }}>
         <Inset clip='border-box' side='top' pb='current'>
           <img
             src={'./images/' + product.image}
@@ -71,8 +78,12 @@ const CartItem = ({ product }) => {
         </Text>
         <br/>
         <Box align='center'>
-          <Button onClick={() => removeFromCart(product)}>
-              <DeleteOutlineOutlinedIcon /> Remove From Cart
+          <Button
+          variant='surface'
+          color='red'
+          onClick={() => removeFromCart(product)}>
+              <DeleteOutlineOutlinedIcon />
+              Remove From Cart
           </Button>
         </Box>
       </Card>

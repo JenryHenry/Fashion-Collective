@@ -3,6 +3,10 @@ import { useMutation } from '@apollo/client';
 import { DELETE_TOP, DELETE_BOTTOM, DELETE_SHOES, DELETE_ACCESSORIES, DELETE_OUTFIT } from '../utils/mutations';
 import { kbdPropDefs } from '@radix-ui/themes/props';
 
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
 const Outfits = ({ outfitData, setOutfitState }) => {
 
     const [deleteTop] = useMutation(DELETE_TOP);
@@ -66,7 +70,15 @@ const Outfits = ({ outfitData, setOutfitState }) => {
         <>
         {outfitData.map((outfit) => (
                 <Box key={outfit._id}>
-                    <Card variant='surface' size='4'>
+                    <Card 
+                    variant='surface' 
+                    size='4' 
+                    style=
+                        {{
+                            background: 'rgb(247,247,247)',
+                            background: 'radial-gradient(circle, rgba(247,247,247,1) 80%, rgba(149,116,104,1) 87%)',
+                        }}
+                    >
                     <Text align='center' as='h1' weight='bold'>{outfit.outfitName[0].toUpperCase() + outfit.outfitName.slice(1)}</Text>
                     <Card>
                     {(() => {
@@ -81,6 +93,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                             <Popover.Root>
                             <Popover.Trigger>
                             <Button variant='soft'>
+                                <InfoOutlinedIcon />
                                 Details
                             </Button>
                             </Popover.Trigger>
@@ -99,12 +112,24 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button onClick={() => {handleDeleteTop(outfit)}}>Remove From Outfit</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='red'
+                                    onClick={() => {handleDeleteTop(outfit)}}>
+                                    <DeleteOutlineOutlinedIcon />
+                                    Remove From Outfit
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='green'
+                                    >
+                                    <AddOutlinedIcon />
+                                    Add to Cart
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -127,6 +152,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                             <Popover.Root>
                             <Popover.Trigger>
                             <Button variant='soft'>
+                                <InfoOutlinedIcon />
                                 Details
                             </Button>
                             </Popover.Trigger>
@@ -143,12 +169,24 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button onClick={() => {handleDeleteBottom(outfit)}}>Remove From Outfit</Button>
+                                    <Button 
+                                    variant='soft'
+                                    color='red'
+                                    onClick={() => {handleDeleteBottom(outfit)}}>
+                                    <DeleteOutlineOutlinedIcon />
+                                    Remove From Outfit
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='green'
+                                    >
+                                    <AddOutlinedIcon />
+                                    Add to Cart
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -171,6 +209,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                             <Popover.Root>
                             <Popover.Trigger>
                             <Button variant='soft'>
+                                <InfoOutlinedIcon />
                                 Details
                             </Button>
                             </Popover.Trigger>
@@ -187,12 +226,24 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button onClick={() => {handleDeleteShoes(outfit)}}>Remove From Outfit</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='red'
+                                    onClick={() => {handleDeleteShoes(outfit)}}>
+                                    <DeleteOutlineOutlinedIcon />
+                                    Remove From Outfit
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='green'
+                                    >
+                                    <AddOutlinedIcon />
+                                    Add to Cart
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -215,6 +266,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                             <Popover.Root>
                             <Popover.Trigger>
                             <Button variant='soft'>
+                                <InfoOutlinedIcon />
                                 Details
                             </Button>
                             </Popover.Trigger>
@@ -231,12 +283,24 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button onClick={() => {handleDeleteTop(outfit)}}>Remove From Outfit</Button>
+                                    <Button 
+                                    variant='soft'
+                                    color='red'
+                                    onClick={() => {handleDeleteTop(outfit)}}>
+                                    <DeleteOutlineOutlinedIcon />
+                                    Remove From Outfit
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='green'
+                                    >
+                                    <AddOutlinedIcon />
+                                    Add to Cart
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -259,6 +323,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                             <Popover.Root>
                             <Popover.Trigger>
                             <Button variant='soft'>
+                                <InfoOutlinedIcon />
                                 Details
                             </Button>
                             </Popover.Trigger>
@@ -275,12 +340,24 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button onClick={() => {handleDeleteTop(outfit)}}>Remove From Outfit</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='red'
+                                    onClick={() => {handleDeleteTop(outfit)}}>
+                                    <DeleteOutlineOutlinedIcon />
+                                    Remove From Outfit
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='green'
+                                    >
+                                    <AddOutlinedIcon />
+                                    Add to Cart
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -303,6 +380,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                             <Popover.Root>
                             <Popover.Trigger>
                             <Button variant='soft'>
+                                <InfoOutlinedIcon />
                                 Details
                             </Button>
                             </Popover.Trigger>
@@ -319,12 +397,24 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button onClick={() => {handleDeleteTop(outfit)}}>Remove From Outfit</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='red'
+                                    onClick={() => {handleDeleteTop(outfit)}}>
+                                    <DeleteOutlineOutlinedIcon />
+                                    Remove From Outfit
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>Add to Cart</Button>
+                                    <Button
+                                    variant='soft'
+                                    color='green'
+                                    >
+                                    <AddOutlinedIcon />
+                                    Add to Cart
+                                    </Button>
                                 </DataList.Value>
                                 </DataList.Item>
                             </DataList.Root>
@@ -337,7 +427,13 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                     }) ()}
                     </Card>
                     <Box pt="5" align="center">
-                    <Button onClick={() => {handleDeleteOutfit(outfit)}}>Delete This Outfit</Button>
+                    <Button
+                    color='red'
+                    variant='surface'
+                    onClick={() => {handleDeleteOutfit(outfit)}}>
+                        <DeleteOutlineOutlinedIcon />
+                        Delete Outfit
+                    </Button>
                     </Box>
                     </Card>
                 </Box>

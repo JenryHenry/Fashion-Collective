@@ -73,39 +73,39 @@ Allow user to checkout or purchase their cart of clothing items using the Stripe
     - If user clicks the logo, they will be redirected to the search page.
     - If user clicks the item button, they will be redirected to the search page with the featured item displayed.
 
-![](./screenshots/homepage.png)
+![Homepage with featured clothing items](./screenshots/homepage.png)
 
 - Search results:
 
     - On this page, users can search for clothes using the search bar, AI image search, or by click a category from the category menu.
     - Authenticated users can add clothing items to a new outfit or update an existing outfit.
 
-![](./screenshots/search.png)
+![Search page with results for men's shoes](./screenshots/search.png)
 
 - Outfits page:
 
     - Displays the users saved outfits.
     - Users can remove an item from their outfit, delete outfits, or create a new outfit.
 
-![](./screenshots/outfits.png)
+![Page of outfits for different seasons](./screenshots/outfits.png)
 
 - Shopping cart:
 
     - Displays the clothing items the user has added to their cart and calculates the total amount.
 
-![](./screenshots/cart.png)
+![Page of clothing items added to shopping cart](./screenshots/cart.png)
 
 - Checkout page:
 
     - Uses Stripe API (test mode only) so user may purchase their cart.
 
-![](./screenshots/checkout.png)
+![Stripe checkout page](./screenshots/checkout.png)
 
 ## Future Development
 
 - User:
     - Favorite outfits.
-    - Organize outfits into different categories (e.g., season, location, activity, etc.).
+    - Organize outfits into different categories (e.g., style, season, location, activity, etc.).
 
 - Community:
     - Share your outfits on the site or to a social media platform.
