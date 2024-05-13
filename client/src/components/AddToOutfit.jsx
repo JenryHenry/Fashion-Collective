@@ -3,7 +3,6 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 import { GET_OUTFITS } from '../utils/queries';
 import { ADD_TOP, ADD_BOTTOM, ADD_SHOES, ADD_ACCESSORIES, ADD_OUTFIT } from '../utils/mutations';
 import { useStoreContext } from '../utils/GlobalState';
-import { pickSuccessWord } from '../utils/helpers';
 
 import Auth from '../utils/auth';
 
@@ -159,12 +158,9 @@ const AddToOutfit = ({ product }) => {
                 </Button>
             </AlertDialog.Trigger>
             <AlertDialog.Content maxWidth='500px'>
-                <AlertDialog.Title>{pickSuccessWord()}</AlertDialog.Title>
+                <AlertDialog.Title>Adding {product.title} to outfit!</AlertDialog.Title>
                 <AlertDialog.Description size='2'>
-                    <Flex direction='column'>
-                    Adding {product.title} to outfit... <br/>
-                    Please click one of the options below.
-                    </Flex>
+                Please click one of the options below.
                 </AlertDialog.Description>
                 <Flex gap='3' mt='4' justify='center' wrap='wrap'>
 
@@ -182,13 +178,11 @@ const AddToOutfit = ({ product }) => {
                     <Popover.Content maxWidth='500px'>
                     <Text>Please enter a name for your new outfit:</Text>
                     <Flex direction='column' gap='3' mt='4'>
-                    <label>
                         <TextField.Root 
                         value={outfitName} 
                         onChange={(e) => setOutfitName(e.target.value)} 
                         placeholder='ex. Concert Fit'>
                         </TextField.Root>
-                    </label>
                     </Flex>
                     <Flex gap='3' mt='4' justify='center' wrap='wrap'>
                     <Popover.Close>
@@ -236,19 +230,20 @@ const AddToOutfit = ({ product }) => {
                                 </Button>
                             </DropdownMenu.Trigger>
                             <DropdownMenu.Content>
-                            { outfits.map((outfit) => 
-                            <DropdownMenu.Item 
-                            key={outfit._id}
-                            onClick={() => {
-                                addToExistingOutfit(outfit.outfitName, product);
-                                setOpenExisting(false);
-                                window.clearTimeout(timerRef.current);
-                                timerRef.current = window.setTimeout(() => {
-                                    setOpenExisting(true);
-                                }, 100);
-                            }}>
-                            {outfit.outfitName}
-                            </DropdownMenu.Item>
+                            {   
+                                outfits.map((outfit) => 
+                                    <DropdownMenu.Item 
+                                    key={outfit._id}
+                                    onClick={() => {
+                                            addToExistingOutfit(outfit.outfitName, product);
+                                            setOpenExisting(false);
+                                            window.clearTimeout(timerRef.current);
+                                            timerRef.current = window.setTimeout(() => {
+                                                setOpenExisting(true);
+                                            }, 100);
+                                    }}>
+                                    {outfit.outfitName}
+                                    </DropdownMenu.Item>
                             )}
                             </DropdownMenu.Content>
                         </DropdownMenu.Root>
