@@ -16,12 +16,12 @@ const Outfits = ({ outfitData, setOutfitState }) => {
     const [deleteOutfit] = useMutation(DELETE_OUTFIT);
     const [state, dispatch] = useStoreContext();
 
-    // const handleAddToCart = (item) => {
-    //     // Dispatch an action to add the product to the cart
-    //     console.log(item);
-    //     dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
-    //     idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
-    // };
+    const handleAddToCart = (item) => {
+        // Dispatch an action to add the product to the cart
+        console.log(item);
+        dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
+        idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
+    };
 
     const handleDeleteTop = async (outfit) => {
         try {
@@ -116,7 +116,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                    <Button>
+                                    <Button onClick={() => handleAddToCart(outfit.top)}>
                                         <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
@@ -161,7 +161,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                <Button>
+                                <Button onClick={() => handleAddToCart(outfit.bottom)}>
                                         <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
@@ -206,7 +206,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                <Button>
+                                <Button onClick={() => handleAddToCart(outfit.shoes)}>
                                         <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
@@ -251,7 +251,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                <Button>
+                                <Button onClick={() => handleAddToCart(outfit.accessories[0])}>
                                         <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
@@ -296,7 +296,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                <Button>
+                                <Button onClick={() => handleAddToCart(outfit.accessories[1])}>
                                         <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
@@ -341,7 +341,7 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                 </DataList.Item>
                                 <DataList.Item>
                                 <DataList.Value>
-                                <Button>
+                                <Button onClick={() => handleAddToCart(outfit.accessories[2])}>
                                         <ShoppingCartOutlinedIcon />Add to Cart</Button>
                                 </DataList.Value>
                                 </DataList.Item>
