@@ -2,7 +2,11 @@ import { Box, Grid, Button, Card, Text, HoverCard, Popover, DataList } from '@ra
 import { useMutation } from '@apollo/client';
 import { DELETE_TOP, DELETE_BOTTOM, DELETE_SHOES, DELETE_ACCESSORIES, DELETE_OUTFIT } from '../utils/mutations';
 import { kbdPropDefs } from '@radix-ui/themes/props';
+import { useStoreContext } from '../utils/GlobalState';
+import { idbPromise } from '../utils/helpers';
+import { ADD_TO_CART } from '../utils/actions';
 
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -14,6 +18,14 @@ const Outfits = ({ outfitData, setOutfitState }) => {
     const [deleteShoes] = useMutation(DELETE_SHOES);
     const [deleteAccessory] = useMutation(DELETE_ACCESSORIES);
     const [deleteOutfit] = useMutation(DELETE_OUTFIT);
+    const [state, dispatch] = useStoreContext();
+
+    const handleAddToCart = (item) => {
+        // Dispatch an action to add the product to the cart
+        console.log(item);
+        dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
+        idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
+    };
 
     const handleDeleteTop = async (outfit) => {
         try {
@@ -126,8 +138,9 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                     <Button
                                     variant='soft'
                                     color='green'
+                                    onClick={() => handleAddToCart(outfit.top)}
                                     >
-                                    <AddOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon />
                                     Add to Cart
                                     </Button>
                                 </DataList.Value>
@@ -183,8 +196,9 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                     <Button
                                     variant='soft'
                                     color='green'
+                                    onClick={() => handleAddToCart(outfit.bottom)}
                                     >
-                                    <AddOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon />
                                     Add to Cart
                                     </Button>
                                 </DataList.Value>
@@ -240,8 +254,9 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                     <Button
                                     variant='soft'
                                     color='green'
+                                    onClick={() => handleAddToCart(outfit.shoes)}
                                     >
-                                    <AddOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon />
                                     Add to Cart
                                     </Button>
                                 </DataList.Value>
@@ -297,8 +312,9 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                     <Button
                                     variant='soft'
                                     color='green'
+                                    onClick={() => handleAddToCart(outfit.accessories[0])}
                                     >
-                                    <AddOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon />
                                     Add to Cart
                                     </Button>
                                 </DataList.Value>
@@ -354,8 +370,9 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                     <Button
                                     variant='soft'
                                     color='green'
+                                    onClick={() => handleAddToCart(outfit.accessories[1])}
                                     >
-                                    <AddOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon />
                                     Add to Cart
                                     </Button>
                                 </DataList.Value>
@@ -411,8 +428,9 @@ const Outfits = ({ outfitData, setOutfitState }) => {
                                     <Button
                                     variant='soft'
                                     color='green'
+                                     onClick={() => handleAddToCart(outfit.accessories[2])}
                                     >
-                                    <AddOutlinedIcon />
+                                    <ShoppingCartOutlinedIcon />
                                     Add to Cart
                                     </Button>
                                 </DataList.Value>

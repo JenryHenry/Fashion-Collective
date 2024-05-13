@@ -118,6 +118,23 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { outfits: {outfitName: args.outfitName} } },
           { new: true, runValidators: true }
+        ).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'top',
+            },
+            {
+              path: 'shoes',
+            },
+            {
+              path: 'bottom',
+            },
+            {
+              path: 'accessories',
+            }
+          ]
+        }
         );
         return updatedUser.outfits;
       }
@@ -128,6 +145,23 @@ const resolvers = {
           { _id: context.user._id },
           { $pull: { outfits: { outfitName: args.outfitName } } },
           { new: true }
+        ).populate({
+          path: 'outfits',
+          populate: [
+            {
+              path: 'top',
+            },
+            {
+              path: 'shoes',
+            },
+            {
+              path: 'bottom',
+            },
+            {
+              path: 'accessories',
+            }
+          ]
+        }
         );
         return updatedUser.outfits;
       }
