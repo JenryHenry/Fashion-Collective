@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { GET_OUTFITS } from '../utils/queries';
-import { ADD_TOP, ADD_BOTTOM, ADD_SHOES, ADD_ACCESSORIES } from '../utils/mutations';
+import { ADD_TOP, ADD_BOTTOM, ADD_SHOES, ADD_ACCESSORIES, ADD_OUTFIT } from '../utils/mutations';
 import { useStoreContext } from '../utils/GlobalState';
-import { idbPromise, pickSuccessWord } from '../utils/helpers';
+import { pickSuccessWord } from '../utils/helpers';
 
 import Auth from '../utils/auth';
 
-import { AlertDialog, Button, Flex, Text, TextField, Popover } from '@radix-ui/themes';
+import { AlertDialog, Button, DropdownMenu, Flex, Text, TextField, Popover } from '@radix-ui/themes';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 const AddToOutfit = ({ product }) => {
@@ -30,17 +30,90 @@ const AddToOutfit = ({ product }) => {
     const [addBottom] = useMutation(ADD_BOTTOM);
     const [addShoes] = useMutation(ADD_SHOES);
     const [addAccessory] = useMutation(ADD_ACCESSORIES);
+    const [addOutfit] = useMutation(ADD_OUTFIT);
 
-    // addToOutfit method
-    // add the item to database
-    const addToOutfit = async (item) => {
+    // addToNewOutfit method
+    // add the new outfit to database
+    const addToNewOutfit = async (item) => {
         try {
-            const category = await checkItem(item);
-            console.log(category);
-            console.log(item);
+            switch(item.category.name){
+                case `Women's Dresses`:
+                case `Women's Tops`:
+                case `Men's Shirts`:
+                    await addOutfit({ 
+                        variables: { outfitName: outfitName } 
+                    });
+                    await addTop({
+                        variables: { outfitName: outfitName, top: item._id }
+                    });
+                    break;
+                case `Women's Bottoms`:
+                case `Men's Bottoms`:
+                    await addOutfit({ 
+                        variables: { outfitName: outfitName } 
+                    });
+                    await addBottom({
+                        variables: { outfitName: outfitName, bottom: item._id }
+                    });
+                    break;
+                case `Women's Shoes`:
+                case `Men's Shoes`:
+                    await addOutfit({ 
+                        variables: { outfitName: outfitName } 
+                    });
+                    await addShoes({
+                        variables: { outfitName: outfitName, shoes: item._id }
+                    });
+                    break;
+                case `Women's Accessories`:
+                case `Men's Accessories`:
+                    await addOutfit({ 
+                        variables: { outfitName: outfitName } 
+                    });
+                    await addAccessory({
+                        variables: { outfitName: outfitName, accessories: item._id }
+                    });
+                    break;
+            }
+
+            await checkOutfits();
         } catch (err) {
             console.error(err);
         }
+    };
+
+    // addToExistingOutfit method
+    // update existing outfit in database
+    const addToExistingOutfit = async (outfitName, item) => {
+        switch(item.category.name){
+            case `Women's Dresses`:
+            case `Women's Tops`:
+            case `Men's Shirts`:
+                await addTop({
+                    variables: { outfitName: outfitName, top: item._id }
+                });
+                break;
+            case `Women's Bottoms`:
+            case `Men's Bottoms`:
+                await addBottom({
+                    variables: { outfitName: outfitName, bottom: item._id }
+                });
+                break;
+            case `Women's Shoes`:
+            case `Men's Shoes`:
+                await addShoes({
+                    variables: { outfitName: outfitName, shoes: item._id }
+                });
+                break;
+            case `Women's Accessories`:
+            case `Men's Accessories`:
+                await addAccessory({
+                    variables: { outfitName: outfitName, accessories: item._id }
+                });
+                break;
+        }
+
+        await checkOutfits();
     };
 
     // checkOutfits function
@@ -50,37 +123,9 @@ const AddToOutfit = ({ product }) => {
         setOutfits(data.outfits);
     };
 
-    // checkItem method
-    // check if the item is a accessory, top, bottom, or shoes
-    const checkItem = async (item) => {
-        let category;
-
-        switch(item.category.name){
-            case `Women's Dresses`:
-            case `Women's Tops`:
-            case `Men's Shirts`:
-                category = 'top';
-                break;
-            case `Women's Bottoms`:
-            case `Men's Bottoms`:
-                category = 'bottom';
-                break;
-            case `Women's Shoes`:
-            case `Men's Shoes`:
-                category = 'shoes';
-                break;
-            case `Women's Accessories`:
-            case `Men's Accessories`:
-                category = 'accessories';
-                break;
-        }
-
-        return category;
-    };
-
     // Render options to add clothing item to new/existing outfit:
     // If user is logged in, the Add to Outfit button display
-    // If user has saved outfits, the Add to Existing Outfit button displays
+    // If user has saved outfits, the Add to Existing Outfit dropdown menu displays
     return(
     <>
     {   
@@ -97,7 +142,7 @@ const AddToOutfit = ({ product }) => {
                 <AddOutlinedIcon /> Add to Outfit
                 </Button>
             </AlertDialog.Trigger>
-            <AlertDialog.Content maxWidth='450px'>
+            <AlertDialog.Content maxWidth='500px'>
                 <AlertDialog.Title>{pickSuccessWord()}</AlertDialog.Title>
                 <AlertDialog.Description size='2'>
                     <Flex direction='column'>
@@ -118,7 +163,7 @@ const AddToOutfit = ({ product }) => {
                         Add to New Outfit
                         </Button>
                     </Popover.Trigger>
-                    <Popover.Content maxWidth='450px'>
+                    <Popover.Content maxWidth='500px'>
                     <Text>Please enter a name for your new outfit:</Text>
                     <Flex direction='column' gap='3' mt='4'>
                     <label>
@@ -136,7 +181,7 @@ const AddToOutfit = ({ product }) => {
                             type='button' 
                             aria-label='Create new outfit and add item to it' 
                             name='addToNewOutfit'
-                            onClick={() => addToOutfit(product)}
+                            onClick={() => addToNewOutfit(product)}
                         >
                         Submit
                         </Button>
@@ -155,18 +200,27 @@ const AddToOutfit = ({ product }) => {
                 </Popover.Root>
 
                 {    outfits.length ?
-                        <>
-                        <AlertDialog.Action>
-                        <Button 
-                            variant='soft'
-                            type='button' 
-                            aria-label='Add Item to Existing Outfit' 
-                            name='addToExistingOutfit'
-                        >
-                        Add to Existing Outfit
-                        </Button>
-                        </AlertDialog.Action>
-                        </>
+                        <DropdownMenu.Root>
+                            <DropdownMenu.Trigger>
+                                <Button 
+                                    variant='soft'
+                                    type='button' 
+                                    aria-label='Add Item to Existing Outfit' 
+                                    name='addToExistingOutfit'
+                                >
+                                Add to Existing Outfit
+                                <DropdownMenu.TriggerIcon />
+                                </Button>
+                            </DropdownMenu.Trigger>
+                            <DropdownMenu.Content>
+                            { outfits.map((outfit) => 
+                            <DropdownMenu.Item 
+                            key={outfit._id}
+                            onClick={(event) =>  addToExistingOutfit(outfit.outfitName, product)}
+                            >{outfit.outfitName}</DropdownMenu.Item>
+                            )}
+                            </DropdownMenu.Content>
+                        </DropdownMenu.Root>
                     :
                         null
                 }

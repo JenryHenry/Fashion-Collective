@@ -27,6 +27,7 @@ export const GET_USER = gql`
 export const GET_OUTFITS = gql`
  query outfits {
   outfits {
+    _id
     outfitName
     top {
       _id
