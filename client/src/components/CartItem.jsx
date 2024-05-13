@@ -69,9 +69,10 @@ const CartItem = ({ product }) => {
         </Text>
         <br/>
         <Text as='p' size='3' color='gray'> 
-          Quantity: <input
+          Quantity: 
+          <input
             type="number"
-            placeholder="1"
+            placeholder='1'
             value={product.purchaseQty}
             onChange={onChange}
           />

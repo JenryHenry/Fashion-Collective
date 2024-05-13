@@ -36,6 +36,9 @@ export const GET_OUTFITS = gql`
       image
       price
       title
+      category {
+        name
+      }
     }
     bottom {
       _id
@@ -44,6 +47,9 @@ export const GET_OUTFITS = gql`
       image
       price
       title
+      category {
+        name
+      }
     }
     shoes {
       _id
@@ -52,6 +58,9 @@ export const GET_OUTFITS = gql`
       image
       price
       title
+      category {
+        name
+      }
     }
     accessories {
       count
@@ -59,6 +68,9 @@ export const GET_OUTFITS = gql`
       image
       price
       title
+      category {
+        name
+      }
     }
   }
 }

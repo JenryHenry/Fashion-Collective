@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { ADD_TO_CART } from '../utils/actions';
+import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../utils/actions';
 import { useStoreContext } from '../utils/GlobalState';
 import { idbPromise, pickSuccessWord } from '../utils/helpers';
 
@@ -29,6 +29,23 @@ const AddToCart = ({ product }) => {
     // handleAddToCart method
     // Dispatch an action to add the product to the cart
     const handleAddToCart = (item) => {
+        let index =-1;
+        for(let i=0; i<state.cart.length; i++){
+            if (item._id === state.cart[i]._id) {
+              index = i;
+              break;
+            }
+        };
+        if (index !== -1) {
+            dispatch({
+                type: UPDATE_CART_QUANTITY,
+                _id: item._id,
+                purchaseQty: state.cart[index].purchaseQty+1
+              });
+            idbPromise('cart', 'put', { ...item, purchaseQty: state.cart[index].purchaseQty+1 });
+            return;
+        }
+
         dispatch({ type: ADD_TO_CART, product: {...item, purchaseQty: 1 }});
         idbPromise('cart', 'put', { ...item, purchaseQty: 1  });
     };
