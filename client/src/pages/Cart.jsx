@@ -7,7 +7,9 @@ import { useStoreContext } from '../utils/GlobalState';
 import { ADD_MULTIPLE_TO_CART } from '../utils/actions';
 import Auth from '../utils/auth';
 import CartItem from '../components/CartItem';
+
 import { Box, Container, Heading, Text, Strong, Button, Flex } from '@radix-ui/themes';
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); 
 
@@ -71,11 +73,25 @@ const CartPage = () => {
       {state.cart.length ? (
         <>
         <Container pb='8' maxWidth='800px'>
-        <Heading as='h2' align='center'>Shopping Cart</Heading>
+        <Heading
+        as='h2'
+        align='center'
+        className='cursive'
+        style=
+        {{ 
+          paddingBottom: 'var(--space-6)',
+          fontSize: '2.5rem'
+        }}
+        >
+        Shopping Cart
+        </Heading>
           <Text as='p' size='5' align='center'><Strong>Total:</Strong> ${calculateTotal()}</Text>
           {Auth.loggedIn() ? (
             <Box align='center'>
-              <Button onClick={submitCheckout} >Checkout</Button>
+              <Button onClick={submitCheckout}>
+                <ShoppingCartCheckoutOutlinedIcon />
+                Checkout
+              </Button>
             </Box>
           ) : (
             <Text as='p' size='4' align='center'>Login to Checkout</Text>

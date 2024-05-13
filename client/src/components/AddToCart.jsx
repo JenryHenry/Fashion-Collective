@@ -5,7 +5,7 @@ import { idbPromise, pickSuccessWord } from '../utils/helpers';
 
 import { Button, Flex, Link } from '@radix-ui/themes';
 import * as Toast from '@radix-ui/react-toast';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 
 const AddToCart = ({ product }) => {
     // Accessing state and dispatch from context
@@ -68,7 +68,7 @@ const AddToCart = ({ product }) => {
                     }, 100);
                 }}
             >
-            <ShoppingCartOutlinedIcon /> Add to Cart
+            <AddShoppingCartOutlinedIcon /> Add to Cart
             </Button>
             <Toast.Root className='ToastRoot' open={open} onOpenChange={setOpen}>
                 <Flex direction='column'>

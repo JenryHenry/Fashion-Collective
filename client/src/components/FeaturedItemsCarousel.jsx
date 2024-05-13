@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { GET_FEATURED } from '../utils/queries';
 
-import { Box, Button, Flex } from '@radix-ui/themes';
+import { Box, Button, Flex, Link, Text } from '@radix-ui/themes';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -54,7 +54,9 @@ const FeaturedItemsCarousel = () => {
       >
           {  data.getFeatured.map((product) => 
               <Box as='div' key={product._id} pb='5'>
+              <Link onClick={() => {handleClick(product.title)}}>
               <img 
+                  className='pointer-cursor'
                   src={'./images/' + product.image}
                   alt={product.description}
                   style={{ 
@@ -63,9 +65,9 @@ const FeaturedItemsCarousel = () => {
                           objectFit: 'cover' 
                         }}
               />
+              </Link>
               <Flex justify='center'>
-                <Button type='button' variant='surface' onClick={() => {handleClick(product.title)}}>
-                {product.title}</Button>
+              <Text as='label' size='4' weight='bold'>{product.title}</Text>
               </Flex>
               </Box>
             ) 

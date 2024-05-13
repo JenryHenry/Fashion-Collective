@@ -32,27 +32,36 @@ const Product = () => {
         <>
         {
             state.products.map((product) =>
-                <Box key={product._id} maxWidth='350px'>
-                    <Card variant='surface' size='3'>
+                <Box key={product._id} width='350px'>
+                    <Card 
+                    variant='surface' 
+                    size='3'
+                    style=
+                        {{
+                            background: 'rgb(247,247,247)',
+                            background: 'radial-gradient(circle, rgba(247,247,247,1) 80%, rgba(149,116,104,1) 87%)',
+                        }}
+                    >
                         <Inset clip='border-box' side='top' pb='current'>
                         <img
                             src={'./images/' + product.image}
                             alt={product.description}
-                            style={{
-                            display: 'block',
-                            objectFit: 'cover',
-                            width: '100%',
-                            height: 350,
+                            style=
+                            {{
+                                display: 'block',
+                                objectFit: 'cover',
+                                width: '100%',
+                                height: 350,
                             }}
                         />
                         </Inset>
-                        <Text as='p' size='5' weight='bold'> {product.title}
-                        </Text>
-                        <Text as='p' size='3' color='gray'> {product.category.name}
-                        </Text>
-                        <Text as='p' size='3' color='gray'> ${product.price}
-                        </Text>
-                        <ProductOptions product={product}/>
+                            <Text as='p' size='5' weight='bold'> {product.title}
+                            </Text>
+                            <Text as='p' size='3' color='gray'> {product.category.name}
+                            </Text>
+                            <Text as='p' size='3' color='gray'> ${product.price}
+                            </Text>
+                            <ProductOptions product={product}/>
                     </Card>
                 </Box>
             )

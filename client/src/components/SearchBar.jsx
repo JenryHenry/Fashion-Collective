@@ -88,7 +88,18 @@ const SearchBar = () => {
                 lg: '3',
             }}
         >
-            <Heading as='h2' align='center' style={{ paddingBottom: 'var(--space-5)' }}>Search for Clothing</Heading>
+            <Heading 
+            as='h2' 
+            align='center' 
+            className='cursive' 
+            style=
+            {{ 
+                paddingBottom: 'var(--space-6)',
+                fontSize: '2.5rem'
+            }}
+            >
+            Search for Clothing
+            </Heading>
             <Form.Root onSubmit={handleSubmit} style={{ paddingBottom: 'var(--space-2)' }}>
                 <Form.Field>
                     <TextField.Root
