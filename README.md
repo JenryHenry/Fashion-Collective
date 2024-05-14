@@ -45,7 +45,7 @@ Located on search page so users may upload an image of a piece of clothing for t
 
 ### [Clarifai](https://www.clarifai.com/)
 
-Clarifai API used for AI image detection and will return closest matching clothing item.
+Clarifai API used for AI image detection and will return closest matching clothing item. WIP.
 
 ### [Stripe](https://docs.stripe.com/)
 
@@ -77,7 +77,7 @@ Allow user to checkout or purchase their cart of clothing items using the Stripe
 
 - Search results:
 
-    - On this page, users can search for clothes using the search bar, AI image search, or by click a category from the category menu.
+    - On this page, users can search for clothes using the search bar, AI image search, or click a category from the category menu.
     - Authenticated users can add clothing items to a new outfit or update an existing outfit.
 
 ![Search page with results for men's shoes](./screenshots/search.png)
@@ -91,7 +91,8 @@ Allow user to checkout or purchase their cart of clothing items using the Stripe
 
 - Shopping cart:
 
-    - Displays the clothing items the user has added to their cart and calculates the total amount.
+    - Displays the clothing items the user has added to their cart.
+    - User can enter the quantity of items to purchase and the total amount will be calculated.
 
 ![Page of clothing items added to shopping cart](./screenshots/cart.png)
 
@@ -115,6 +116,9 @@ Allow user to checkout or purchase their cart of clothing items using the Stripe
     - “I don’t know what to wear!” - preference quiz that will generate an outfit.
     - Drag and drop clothing items on mannequin to style it.
 
+- Industry Collaboration:
+    - Garner a wide audience and site traffic by partnering with clothing brands or fashion designers and feature their collections.
+
 
 ## Credits
 
@@ -124,6 +128,8 @@ Allow user to checkout or purchase their cart of clothing items using the Stripe
 
 ## License
 
-[MIT License](https://github.com/JenryHenry/Fashion-Collective?tab=MIT-1-ov-file) - Copyright © 2024 JenryHenry, itzelherndz, apri1mayrain
+[MIT License](https://github.com/JenryHenry/Fashion-Collective?tab=MIT-1-ov-file)
+
+Copyright © 2024 [JenryHenry](https://github.com/JenryHenry), [itzelherndz](https://github.com/itzelherndz), [apri1mayrain](https://github.com/apri1mayrain)
 
 [(Go back to top)](#fashion-collective-clothing-ecommerce)
